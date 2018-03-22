@@ -11,31 +11,46 @@ import android.view.MenuItem;
 
 import com.frezrik.androidstudy.R;
 
+import static com.frezrik.androidstudy.R.id.toolbar;
+
 public class MainActivity
         extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
     private DrawerLayout mDrawer;
+    private ActionBarDrawerToggle mToggle;
+    private NavigationView mNavigationView;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        initView();
+        initListener();
+
+    }
+
+    private void initView() {
+        mToolbar = (Toolbar) findViewById(toolbar);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        setSupportActionBar(toolbar);
+        mToolbar.setTitle(getString(R.string.app_name));
+        setSupportActionBar(mToolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer,
-                                                                 toolbar,
-                                                                 R.string.navigation_drawer_open,
-                                                                 R.string.navigation_drawer_close);
-        mDrawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar,
+                                            R.string.navigation_drawer_open,
+                                            R.string.navigation_drawer_close);
+    }
+
+    private void initListener() {
+        mDrawer.addDrawerListener(mToggle);
+        mToggle.syncState();
+        mNavigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -55,6 +70,7 @@ public class MainActivity
 
                  break;
             case R.id.nav_settings:
+
                 break;
             case R.id.nav_share:
                 break;
