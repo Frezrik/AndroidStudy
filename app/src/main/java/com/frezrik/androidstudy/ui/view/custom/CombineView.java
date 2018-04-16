@@ -3,6 +3,9 @@ package com.frezrik.androidstudy.ui.view.custom;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -18,12 +21,13 @@ import com.frezrik.androidstudy.R;
  * Created by zhouming on 2018/4/16.
  */
 
-public class CombineView extends LinearLayout
+public class CombineView
+        extends LinearLayout
         implements View.OnClickListener
 {
 
-    private int mColor;
-    private int mImage;
+    private int    mColor;
+    private int    mImage;
     private String mTitle;
     private String mLeft;
     private String mMid_up;
@@ -32,7 +36,7 @@ public class CombineView extends LinearLayout
     private String mRight_down;
 
     private OnItemClickListener mOnItemClickListener;
-    private String mTag;
+    private String              mTag;
 
     public CombineView(Context context) {
         this(context, null);
@@ -51,7 +55,8 @@ public class CombineView extends LinearLayout
     }
 
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.view_combine, this, true);
+        LayoutInflater.from(context)
+                .inflate(R.layout.view_combine, this, true);
 
         LinearLayout ll_left = findViewById(R.id.ll_left);
         LinearLayout ll_mid_up = findViewById(R.id.ll_mid_up);
@@ -66,11 +71,11 @@ public class CombineView extends LinearLayout
         TextView tv_right_up = findViewById(R.id.tv_right_up);
         TextView tv_right_down = findViewById(R.id.tv_right_down);
 
-        ll_left.setBackgroundColor(mColor);
-        ll_mid_up.setBackgroundColor(mColor);
-        ll_mid_down.setBackgroundColor(mColor);
-        ll_right_up.setBackgroundColor(mColor);
-        ll_right_down.setBackgroundColor(mColor);
+        ll_left.setBackground(getDrawable(mColor));
+        ll_mid_up.setBackground(getDrawable(mColor));
+        ll_mid_down.setBackground(getDrawable(mColor));
+        ll_right_up.setBackground(getDrawable(mColor));
+        ll_right_down.setBackground(getDrawable(mColor));
         iv_left.setImageResource(mImage);
         tv_title.setTextColor(mColor);
         tv_title.setText(TextUtils.isEmpty(mTitle) ? "" : mTitle);
@@ -102,7 +107,7 @@ public class CombineView extends LinearLayout
 
     @Override
     public void onClick(View v) {
-        if(mOnItemClickListener != null) {
+        if (mOnItemClickListener != null) {
             v.setTag(mTag);
             switch (v.getId()) {
                 case R.id.ll_left:
@@ -122,6 +127,16 @@ public class CombineView extends LinearLayout
                     break;
             }
         }
+    }
+
+    private Drawable getDrawable(int color) {
+        StateListDrawable drawable = new StateListDrawable();
+        Drawable selected = new ColorDrawable(color & 0xddffffff);
+        Drawable unSelected = new ColorDrawable(color);
+        drawable.addState(new int[]{android.R.attr.state_pressed}, selected);
+        drawable.addState(new int[]{}, unSelected);
+
+        return drawable;
     }
 
     public void setOnItemClickListener(@Nullable OnItemClickListener listener, String tag) {

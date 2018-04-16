@@ -14,7 +14,7 @@ import android.view.View;
 public abstract class BaseActivity
         extends AppCompatActivity
 {
-    //private final AppPreferences appPreferences = new AppPreferences(this);
+    private final AppPreferences appPreferences = new AppPreferences(this);
 
     public void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, int resTitle) {
         toolbar.setTitle(getString(resTitle));
@@ -22,9 +22,9 @@ public abstract class BaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
     }
 
-   /* public AppPreferences getPreferences() {
+    public AppPreferences getPreferences() {
         return appPreferences;
-    }*/
+    }
 
     public void startActivity(Intent intent, View v) {
         if (intent != null && intent.getComponent() != null && !intent.getComponent()

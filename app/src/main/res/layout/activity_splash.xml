@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,9 +11,7 @@
     <com.frezrik.androidstudy.ui.view.svg.AnimatedSvgView
         android:id="@+id/animated_svg_view"
         android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_height="wrap_content"
         app:animatedSvgFillColors="@array/google_glyph_colors"
         app:animatedSvgGlyphStrings="@array/google_glyph_strings"
         app:animatedSvgFillStart="1200"
@@ -21,18 +19,36 @@
         app:animatedSvgImageSizeX="400"
         app:animatedSvgImageSizeY="400"
         app:animatedSvgTraceTime="3000"
-        app:animatedSvgTraceTimePerGlyph="1000"/>
+        app:animatedSvgTraceTimePerGlyph="1000"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_title"
+        app:layout_constraintVertical_bias="0.502"/>
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
         android:text="@string/app_name"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintHorizontal_bias="1.0"/>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

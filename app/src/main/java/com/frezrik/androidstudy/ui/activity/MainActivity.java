@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.frezrik.androidstudy.R;
 import com.frezrik.androidstudy.ui.view.custom.CombineView;
@@ -23,7 +23,7 @@ public class MainActivity
     private ActionBarDrawerToggle mToggle;
     private NavigationView        mNavigationView;
     private Toolbar               mToolbar;
-    private Button                btn;
+    private long lastTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,12 @@ public class MainActivity
         if (mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (System.currentTimeMillis() - lastTime < 2000) {
+                super.onBackPressed();
+            } else {
+                lastTime = System.currentTimeMillis();
+                Toast.makeText(this, getString(R.string.toast_exit_app), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

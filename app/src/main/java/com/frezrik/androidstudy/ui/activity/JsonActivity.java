@@ -1,17 +1,33 @@
 package com.frezrik.androidstudy.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.frezrik.androidstudy.R;
 
 public class JsonActivity
-        extends AppCompatActivity
+        extends BaseActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json);
+
+        initView();
+
+    }
+
+    private void initView() {
+        setTitle(R.string.json);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
