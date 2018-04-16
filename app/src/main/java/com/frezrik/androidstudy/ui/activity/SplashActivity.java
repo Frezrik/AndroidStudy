@@ -7,7 +7,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.frezrik.androidstudy.R;
-import com.frezrik.androidstudy.ui.view.AnimatedSvgView;
+import com.frezrik.androidstudy.ui.view.svg.AnimatedSvgView;
 import com.frezrik.androidstudy.utils.AnimUtil;
 import com.frezrik.androidstudy.utils.AppUtil;
 

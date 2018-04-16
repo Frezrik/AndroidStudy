@@ -1,4 +1,4 @@
-package com.frezrik.androidstudy.ui.view;
+package com.frezrik.androidstudy.ui.view.svg;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
