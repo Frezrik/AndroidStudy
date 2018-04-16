@@ -10,6 +10,7 @@ import com.frezrik.androidstudy.R;
 import com.frezrik.androidstudy.ui.view.svg.AnimatedSvgView;
 import com.frezrik.androidstudy.utils.AnimUtil;
 import com.frezrik.androidstudy.utils.AppUtil;
+import com.frezrik.androidstudy.utils.SPHelper;
 
 public class SplashActivity
         extends AppCompatActivity
@@ -20,6 +21,10 @@ public class SplashActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!(boolean) SPHelper.getInstance(this).get(getString(R.string.IS_FIRST_START), true)) {
+            gotoMain();
+        }
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -48,10 +53,15 @@ public class SplashActivity
             @Override
             public void onStateChange(int state) {
                 if(state == AnimatedSvgView.STATE_FINISHED) {
-                    AppUtil.gotoActivity(getApplicationContext(), MainActivity.class);
-                    finish();
+                    SPHelper.getInstance(getApplicationContext()).put(getString(R.string.IS_FIRST_START), false);
+                    gotoMain();
                 }
             }
         });
+    }
+
+    private void gotoMain() {
+        AppUtil.gotoActivity(getApplicationContext(), MainActivity.class);
+        finish();
     }
 }

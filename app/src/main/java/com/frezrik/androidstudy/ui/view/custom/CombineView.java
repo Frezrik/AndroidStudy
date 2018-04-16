@@ -131,7 +131,7 @@ public class CombineView
 
     private Drawable getDrawable(int color) {
         StateListDrawable drawable = new StateListDrawable();
-        Drawable selected = new ColorDrawable(color & 0xddffffff);
+        Drawable selected = new ColorDrawable(color & 0xccffffff);
         Drawable unSelected = new ColorDrawable(color);
         drawable.addState(new int[]{android.R.attr.state_pressed}, selected);
         drawable.addState(new int[]{}, unSelected);

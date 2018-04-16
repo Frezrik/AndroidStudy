@@ -69,10 +69,10 @@ public class AnimUtil {
     public static void animAlphaScaleShowView(final View view, int time_ms) {
         if (animFlag) return;
         AnimationSet set = new AnimationSet(true);
-        AlphaAnimation alphaAnim = new AlphaAnimation(0.2f, 1.0f);
+        AlphaAnimation alphaAnim = new AlphaAnimation(0.5f, 1.0f);
         set.addAnimation(alphaAnim);
 
-        ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 1.5f, 1.0f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         set.addAnimation(scaleAnim);
         set.setFillAfter(true);
         set.setDuration(time_ms);
