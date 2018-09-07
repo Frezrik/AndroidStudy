@@ -78,8 +78,12 @@ public class MainActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Intent intent = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
+                break;
+            case R.id.nav_ndk:
+                intent = new Intent(this, NDKActivity.class);
                 break;
             case R.id.nav_settings:
                 break;
@@ -92,6 +96,9 @@ public class MainActivity
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
+        if(intent != null) {
+            startActivity(intent);
+        }
         return true;
     }
 
