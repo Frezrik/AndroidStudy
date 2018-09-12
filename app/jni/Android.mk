@@ -18,10 +18,12 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := jniapi
 
+LOCAL_C_INCLUDES := $(LOCAL_PATH)
+
 MY_CPP_LIST := $(wildcard $(LOCAL_PATH)/cppstudy/*.cpp)
 LOCAL_SRC_FILES := $(MY_CPP_LIST:$(LOCAL_PATH)/%=%)
 
-$(warning $(LOCAL_SRC_FILES))
+# $(warning $(LOCAL_SRC_FILES))
 
 LOCAL_LDLIBS :=-llog
 
@@ -32,6 +34,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := jnistudy
+LOCAL_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_SRC_FILES := cstudy/test.c
 
 LOCAL_LDLIBS :=-llog
