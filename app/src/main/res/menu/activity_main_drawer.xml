@@ -10,9 +10,9 @@
         android:icon="@drawable/ic_menu_ndk"
         android:title="NDK"/>
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/nav_component"
         android:icon="@drawable/ic_menu_settins"
-        android:title="Settins"/>
+        android:title="Component"/>
 
     <item android:title="Communicate">
         <menu>

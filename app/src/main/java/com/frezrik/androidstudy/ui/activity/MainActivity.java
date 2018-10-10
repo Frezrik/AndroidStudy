@@ -85,7 +85,8 @@ public class MainActivity
             case R.id.nav_ndk:
                 intent = new Intent(this, NDKActivity.class);
                 break;
-            case R.id.nav_settings:
+            case R.id.nav_component:
+                intent = new Intent(this, Component.class);
                 break;
             case R.id.nav_share:
                 break;
