@@ -12,7 +12,7 @@ public class StudyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (ACTION.equals(intent.getAction())) {
-            Toast.makeText(context, "Receive broadcast:" + intent.getStringExtra("msg"), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Receive broadcast:" + intent.getStringExtra("msg") + "\n" + intent.getData(), Toast.LENGTH_SHORT).show();
         }
     }
 }

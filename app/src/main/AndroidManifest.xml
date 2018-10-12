@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.frezrik.androidstudy">
+<manifest package="com.frezrik.androidstudy"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -11,24 +11,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--################ activity ################-->
         <activity
             android:name=".ui.activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.NDKActivity" />
+        <activity android:name=".ui.activity.NDKActivity">
+        </activity>
         <activity android:name=".ui.activity.CustomActivity" />
         <activity android:name=".ui.activity.JsonActivity" />
+        <activity android:name=".ui.activity.ComponentActivity"/>
+        <activity android:name=".ui.activity.ImRecActivity">
+        </activity>
+        <!--################ activity ################-->
 
+        <!--################ service ################-->
         <service
             android:name=".service.StudyService"
             android:enabled="true"
@@ -37,17 +45,21 @@
                 <action android:name="com.frezrik.studyService"/>
             </intent-filter>
         </service>
+        <!--################ service ################-->
 
+        <!--################ receiver ################-->
         <receiver
             android:name=".receiver.StudyReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.frezrik.studybroadcast"/>
+                <data android:scheme="study"/>
             </intent-filter>
         </receiver>
+        <!--################ receiver ################-->
 
-        <activity android:name=".ui.activity.Component"></activity>
+
     </application>
 
 </manifest>

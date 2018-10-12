@@ -26,5 +26,10 @@
     <string name="json">JSON</string>
     <string name="fast_json">FastJson</string>
 
+    <string name="imrec_view">图像处理</string>
+    <string name="camera2">Camera2</string>
+    <string name="codebar">条码识别</string>
+    <string name="ocrbc">银行卡识别</string>
+
 
 </resources>

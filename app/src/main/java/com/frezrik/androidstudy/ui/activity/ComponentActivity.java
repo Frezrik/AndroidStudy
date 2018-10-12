@@ -1,14 +1,15 @@
 package com.frezrik.androidstudy.ui.activity;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.frezrik.androidstudy.R;
 
-public class Component extends AppCompatActivity {
+public class ComponentActivity
+        extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +36,24 @@ public class Component extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction("com.frezrik.studyService");
         startService(intent);
+        stopService(intent);
     }
 
 
     private void start_explicit_service() {
         //方法一：设置包名
-        /*Intent intent = new Intent();
+        Intent intent = new Intent();
         intent.setAction("com.frezrik.studyService");
         intent.setPackage(getPackageName());
-        startService(intent);*/
+        startService(intent);
+        stopService(intent);
 
         //方法二：设置ComponentName
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         ComponentName cn = new ComponentName(getPackageName(), "com.frezrik.androidstudy.service.StudyService");
         intent.setComponent(cn);
         startService(intent);
+        stopService(intent);*/
     }
 
 
@@ -57,6 +61,7 @@ public class Component extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction("com.frezrik.studybroadcast");
         intent.putExtra("msg", "msg");
+        intent.setData(Uri.fromParts("study", getPackageName(), null));
         sendBroadcast(intent);
     }
 }

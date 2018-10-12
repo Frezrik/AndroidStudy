@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cv_color="@color/grey"
-                app:cv_image="@mipmap/ic_image_photo"
+                app:cv_image="@mipmap/ic_content_image"
                 app:cv_text_title="@string/custom_view"
                 app:cv_text_left="@string/combine_view"/>
 
@@ -43,6 +43,17 @@
                 app:cv_image="@mipmap/ic_content_send"
                 app:cv_text_title="@string/json"
                 app:cv_text_left="@string/fast_json"/>
+
+            <com.frezrik.androidstudy.ui.view.custom.CombineView
+                android:id="@+id/cv_im"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cv_color="@color/teal"
+                app:cv_image="@mipmap/ic_content_image"
+                app:cv_text_title="@string/imrec_view"
+                app:cv_text_left="@string/camera2"
+                app:cv_text_mid_up="@string/codebar"
+                app:cv_text_mid_down="@string/ocrbc"/>
 
         </LinearLayout>
 

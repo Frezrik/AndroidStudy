@@ -30,6 +30,7 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         initView();
         initListener();
 
@@ -50,8 +51,10 @@ public class MainActivity
 
         CombineView cv_custom = (CombineView) findViewById(R.id.cv_custom);
         CombineView cv_json = (CombineView) findViewById(R.id.cv_json);
+        CombineView cv_im = (CombineView) findViewById(R.id.cv_im);
         cv_custom.setOnItemClickListener(this, "cv_custom");
         cv_json.setOnItemClickListener(this, "cv_json");
+        cv_im.setOnItemClickListener(this, "cv_im");
     }
 
     private void initListener() {
@@ -86,7 +89,7 @@ public class MainActivity
                 intent = new Intent(this, NDKActivity.class);
                 break;
             case R.id.nav_component:
-                intent = new Intent(this, Component.class);
+                intent = new Intent(this, ComponentActivity.class);
                 break;
             case R.id.nav_share:
                 break;
@@ -105,7 +108,7 @@ public class MainActivity
 
 
     @Override
-    public void onItemClick(View v, int position) {
+    public void onItemClick(View v, String title) {
         Intent intent = null;
         switch ((String) v.getTag()) {
             case "cv_custom":
@@ -114,12 +117,15 @@ public class MainActivity
             case "cv_json":
                 intent = new Intent(this, JsonActivity.class);
                 break;
+            case "cv_im":
+                intent = new Intent(this, ImRecActivity.class);
+                break;
             default:
                 break;
         }
 
         if(intent != null) {
-            startActivity(intent, v);
+            startActivity(intent, v, title);
         }
     }
 }

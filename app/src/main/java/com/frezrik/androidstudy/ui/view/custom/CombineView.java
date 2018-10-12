@@ -111,19 +111,19 @@ public class CombineView
             v.setTag(mTag);
             switch (v.getId()) {
                 case R.id.ll_left:
-                    mOnItemClickListener.onItemClick(v, 0);
+                    mOnItemClickListener.onItemClick(v, mLeft);
                     break;
                 case R.id.ll_mid_up:
-                    mOnItemClickListener.onItemClick(v, 1);
+                    mOnItemClickListener.onItemClick(v, mMid_up);
                     break;
                 case R.id.ll_mid_down:
-                    mOnItemClickListener.onItemClick(v, 2);
+                    mOnItemClickListener.onItemClick(v, mMid_down);
                     break;
                 case R.id.ll_right_up:
-                    mOnItemClickListener.onItemClick(v, 3);
+                    mOnItemClickListener.onItemClick(v, mRight_up);
                     break;
                 case R.id.ll_right_down:
-                    mOnItemClickListener.onItemClick(v, 4);
+                    mOnItemClickListener.onItemClick(v, mRight_down);
                     break;
             }
         }
@@ -145,6 +145,6 @@ public class CombineView
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View v, int position);
+        void onItemClick(View v, String title);
     }
 }

@@ -19,7 +19,6 @@ public class JsonActivity
     }
 
     private void initView() {
-        setTitle(R.string.json);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

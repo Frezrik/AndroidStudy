@@ -4,8 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,6 +23,7 @@ public abstract class BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle(getIntent().getStringExtra("title"));
         mSPHelper = SPHelper.getInstance(getApplicationContext());
     }
 
@@ -34,7 +33,7 @@ public abstract class BaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
     }
 
-    public void startActivity(Intent intent, View v) {
+    public void startActivity(Intent intent, View v, String title) {
         if (intent != null && intent.getComponent() != null && !intent.getComponent()
                 .getClassName()
                 .equals(MainActivity.class.getName()))
@@ -47,6 +46,7 @@ public abstract class BaseActivity
                                                                         0,
                                                                         v.getMeasuredWidth(),
                                                                         v.getMeasuredHeight());
+            intent.putExtra("title", title);
             startActivity(intent, opts.toBundle());
         }
     }
