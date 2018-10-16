@@ -1,0 +1,38 @@
+ext{
+    version = "2.0"
+
+    dependVersion = [
+            rxJava          : "2.1.11",
+            rxAndroid       : "2.0.1",
+            retrofit        :  "2.4.0",
+            glide           : "4.6.1",
+            support_version : "27.0.2"
+    ]
+    supportLib=[
+            v7              : "com.android.support:appcompat-v7:$dependVersion.support_version",
+            design          : "com.android.support:design:$dependVersion.support_version",
+            recyclerview    : "com.android.support:recyclerview-v7:$dependVersion.support_version",
+            cardview        : "com.android.support:cardview-v7:$dependVersion.support_version",
+            annotations     : "com.android.support:support-annotations:$dependVersion.support_version"
+    ]
+
+    rxJava = [
+            rxJava          : "io.reactivex.rxjava2:rxjava:$dependVersion.rxJava",
+            rxAndroid       : "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid"
+    ]
+    retrofit=[
+            retrofit        : "com.squareup.retrofit2:retrofit:$dependVersion.retrofit",
+            retrofit_gson   : "com.squareup.retrofit2:converter-gson:$dependVersion.retrofit",
+            retrofit_rxjava : "com.squareup.retrofit2:adapter-rxjava2:$dependVersion.retrofit",
+            retrofit_log    : "com.squareup.okhttp3:logging-interceptor:3.4.1"
+    ]
+    glide=[
+            glide           :"com.github.bumptech.glide:glide:$dependVersion.glide",
+            glide_ok        :"com.github.bumptech.glide:okhttp3-integration:$dependVersion.glide",
+    ]
+
+    rxJavaLibs = rxJava.values()
+    retrofitLibs = retrofit.values()
+    glideLibs = glide.values()
+    supportLibs = supportLib.values()
+}

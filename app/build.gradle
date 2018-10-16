@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def packageTime() {
+    return new Date().format("yyyyMMdd")
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -8,14 +12,41 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName rootProject.ext.version + '_' + packageTime()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
+        //buildConfigField "boolean", "platform", "false"
+    }
+    signingConfigs {
+        app {
+            storeFile file(STOREFILE_APP)
+            storePassword STOREPASSWORD_APP
+            keyAlias KEYALIAS_APP
+            keyPassword KEYPASSWORD_APP
+        }
+        /*platform {
+            storeFile STOREFILE_PLATFORM
+            storePassword STOREPASSWORD_PLATFORM
+            keyAlias KEYALIAS_PLATFORM
+            keyPassword KEYPASSWORD_PLATFORM
+        }*/
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.app
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.app
+        }
+        platform {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.platform
+            //buildConfigField "boolean", "platform", "true"
         }
     }
     sourceSets {
@@ -27,6 +58,19 @@ android {
     externalNativeBuild {
         ndkBuild {
             path 'jni/Android.mk'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.processManifest.doLast {
+
+                if (!variant.buildType.name.equals('platform')) {
+                    def manifestFile = output.processManifest.manifestOutputFile
+                    def updatedContent = manifestFile.getText('UTF-8').replaceAll("android:sharedUserId=\"android.uid.system\"", "")
+                    manifestFile.write(updatedContent, 'UTF-8')
+                }
+
+            }
         }
     }
 }
