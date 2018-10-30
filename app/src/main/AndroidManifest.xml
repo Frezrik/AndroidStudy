@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.frezrik.androidstudy"
           xmlns:android="http://schemas.android.com/apk/res/android"
-          android:sharedUserId="android.uid.system">
+          android:sharedUserId="frezrik.uid.androidstudy">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
