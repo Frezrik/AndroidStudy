@@ -27,12 +27,12 @@ android {
             keyAlias KEYALIAS_APP
             keyPassword KEYPASSWORD_APP
         }
-        /*platform {
-            storeFile STOREFILE_PLATFORM
+        platform {
+            storeFile file(STOREFILE_PLATFORM)
             storePassword STOREPASSWORD_PLATFORM
             keyAlias KEYALIAS_PLATFORM
             keyPassword KEYPASSWORD_PLATFORM
-        }*/
+        }
     }
     buildTypes {
         release {
@@ -48,8 +48,8 @@ android {
         platform {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.platform
-            //buildConfigField "boolean", "platform", "true"
+            signingConfig signingConfigs.platform
+            buildConfigField "boolean", "platform", "true"
         }
     }
     sourceSets {
@@ -67,9 +67,9 @@ android {
         variant.outputs.each { output ->
             output.processManifest.doLast {
 
-                if (!variant.buildType.name.equals('platform')) {
+                if (variant.buildType.name.equals('platform')) {
                     def manifestFile = file("$manifestOutputDirectory/AndroidManifest.xml")
-                    def updatedContent = manifestFile.getText('UTF-8').replaceAll("android:sharedUserId=\"android.uid.system\"", "")
+                    def updatedContent = manifestFile.getText('UTF-8').replace("frezrik.uid.androidstudy", "android.uid.system")
                     manifestFile.write(updatedContent, 'UTF-8')
                 }
 
