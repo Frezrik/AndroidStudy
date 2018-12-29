@@ -16,7 +16,7 @@ public class DeviceManager {
      *
      * @return DeviceManager实例
      */
-    public static DeviceManager getInstance() {
+    public synchronized static DeviceManager getInstance() {
         if (uniqueInstance == null) {
             uniqueInstance = new DeviceManager();
         }
