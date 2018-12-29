@@ -45,6 +45,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation rootProject.ext.supportLibs
 
+    compileOnly files('libs/layoutlib.jar')
     testImplementation 'junit:junit:4.12'
 
 }
