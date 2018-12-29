@@ -55,7 +55,8 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
-            aidl.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/aidl']
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
         }
     }
     externalNativeBuild {
@@ -67,7 +68,7 @@ android {
         variant.outputs.each { output ->
             output.processManifest.doLast {
 
-                if (variant.buildType.name.equals('platform')) {
+                if (variant.buildType.name == 'platform') {
                     def manifestFile = file("$manifestOutputDirectory/AndroidManifest.xml")
                     def updatedContent = manifestFile.getText('UTF-8').replace("frezrik.uid.androidstudy", "android.uid.system")
                     manifestFile.write(updatedContent, 'UTF-8')
