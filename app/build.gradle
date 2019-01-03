@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'com.frezrik.plugin'
+apply plugin: 'com.frezrik.plugin'
 
 def packageTime() {
     return new Date().format("yyyyMMdd", TimeZone.getDefault())
@@ -85,4 +85,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':commonlib')
+
 }
