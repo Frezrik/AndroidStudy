@@ -11,7 +11,7 @@ dependencies {
 
 }
 
-def MAVEN_LOCAL_PATH = uri('../.')
+def MAVEN_LOCAL_PATH = uri('../repository')
 
 uploadArchives {
     repositories {

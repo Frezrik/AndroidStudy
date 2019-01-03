@@ -80,6 +80,9 @@ buildscript {
         maven {// 添加Maven的本地依赖
             url uri('./repository')
         }
+        /*maven {
+            url "https://raw.githubusercontent.com/Frezrik/AndroidStudy/master"
+        }*/
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
