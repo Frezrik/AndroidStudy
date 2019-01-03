@@ -2,8 +2,6 @@ package com.frezrik.androidstudy;
 
 import android.app.Application;
 import android.content.Context;
-import com.frezrik.androidstudy.service.DeviceManagerService;
-import com.frezrik.framework.utils.ServiceManager;
 
 public class FApplication extends Application {
     private Context mContext;
@@ -23,8 +21,9 @@ public class FApplication extends Application {
     }
 
     private void startDeviceService() {
-        if (ServiceManager.checkService("FrezrikDeviceManager") == null) {
+        //if (ServiceManager.checkService("FrezrikDeviceManager") == null) {
             //ServiceManager.addService("FrezrikDeviceManager", new DeviceManagerService(mContext));
-        }
+        //}
+
     }
 }

@@ -1,18 +1,93 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: "config.gradle"
 
 buildscript {
-    ext.kotlin_version = '1.2.71'
+    ext {
+        versions = [
+            app           : 2.0,
+            compileSdk    : 27,
+            minSdk        : 17,
+            targetSdk     : 21,
+            kotlin        : '1.2.71',
+            supportLibrary: '27.0.2',
+            androidPlugin : '3.2.1',
+            androidTools  : '27.0.3',
+            fjson         : '1.2.54',
+            fjsonAndroid  : '1.1.70',
+            rxJava        : '2.1.11',
+            rxAndroid     : '2.0.1',
+            retrofit      : '2.4.0',
+            glide         : '4.6.1',
+        ]
+
+        //google support
+        support = [
+                kotlin         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+                compat         : "com.android.support:support-compat:${versions.supportLibrary}",
+                design         : "com.android.support:design:${versions.supportLibrary}",
+                v7_appcompat   : "com.android.support:appcompat-v7:${versions.supportLibrary}",
+                v7_recyclerView: "com.android.support:recyclerview-v7:${versions.supportLibrary}",
+                v7_cardView    : "com.android.support:cardview-v7:${versions.supportLibrary}",
+                support_v4     : "com.android.support:support-v4:${versions.supportLibrary}",
+                annotations    : "com.android.support:support-annotations:${versions.supportLibrary}",
+                constraint     : 'com.android.support.constraint:constraint-layout:1.0.2',
+                multidex       : 'com.android.support:multidex:1.0.1',
+        ]
+
+        tests = [
+                runner    : 'com.android.support.test:runner:1.0.1',
+                rule      : 'com.android.support.test:rules:1.0.1',
+                junit     : 'junit:junit:4.12'
+        ]
+
+        deps = [
+
+            //lint
+            lint    : [
+                    core  : "com.android.tools.lint:lint:${versions.androidTools}",
+                    api   : "com.android.tools.lint:lint-api:${versions.androidTools}",
+                    checks: "com.android.tools.lint:lint-checks:${versions.androidTools}",
+                    tests : "com.android.tools.lint:lint-tests:${versions.androidTools}",
+            ],
+
+            fastjson: [
+                    fjson       : "com.alibaba:fastjson:${versions.fjson}",
+                    fjsonAndroid: "com.alibaba:fastjson:${versions.fjsonAndroid}.android",
+            ],
+
+            rxJava  : [
+                    rxJava   : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
+                    rxAndroid: "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+            ],
+
+            retrofit: [
+                    retrofit       : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                    retrofit_gson  : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+                    retrofit_rxjava: "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+                    retrofit_log   : "com.squareup.okhttp3:logging-interceptor:3.4.1"
+            ],
+
+            glide   : [
+                    glide   : "com.github.bumptech.glide:glide:$versions.glide",
+                    glide_ok: "com.github.bumptech.glide:okhttp3-integration:$versions.glide",
+            ],
+        ]
+
+    }
+
     repositories {
         google()
         jcenter()
+        maven {// 添加Maven的本地依赖
+            url uri('./repository')
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.frezrik.plugin:component-build:1.0.0'
     }
 }
 
@@ -20,6 +95,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {// 添加Maven的本地依赖
+            url uri('./repository')
+        }
     }
 }
 

@@ -1,0 +1,31 @@
+apply plugin: 'groovy'
+
+dependencies {
+    compile 'com.android.tools.build:gradle:3.2.1'
+    compile group: 'org.javassist', name: 'javassist', version: '3.23.1-GA'
+    //gradle sdk
+    compile gradleApi()
+    //groovy sdk
+    compile localGroovy()
+
+}
+
+apply from: './gradle-mvn-push.gradle'
+
+def GROUP_ID = 'com.frezrik.plugin'
+def ARTIFACT_ID = 'component-build'
+def VERSION = '1.0.0'
+def MAVEN_LOCAL_PATH = uri('../repository')
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: MAVEN_LOCAL_PATH)
+            pom.project {
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION
+            }
+        }
+    }
+}

@@ -2,10 +2,10 @@ package com.frezrik.androidstudy.service;
 
 import android.content.Context;
 import android.os.RemoteException;
-import com.frezrik.framework.aidl.IDeviceManager;
-import com.frezrik.framework.aidl.ITestListener;
-import com.frezrik.framework.aidl.TestResult;
-import com.frezrik.framework.utils.ConvertUtils;
+import com.frezrik.common.aidl.IDeviceManager;
+import com.frezrik.common.aidl.ITestListener;
+import com.frezrik.common.aidl.TestResult;
+import com.frezrik.common.utils.ConvertUtils;
 
 public class DeviceManagerService extends IDeviceManager.Stub {
     public DeviceManagerService(Context mContext) {
