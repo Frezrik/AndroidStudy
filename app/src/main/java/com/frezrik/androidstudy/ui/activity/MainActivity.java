@@ -108,7 +108,7 @@ public class MainActivity
 
 
     @Override
-    public void onItemClick(View v, String title) {
+    public void onItemClick(View v, String title, String position) {
         Intent intent = null;
         switch ((String) v.getTag()) {
             case "cv_custom":
@@ -125,7 +125,7 @@ public class MainActivity
         }
 
         if(intent != null) {
-            startActivity(intent, v, title);
+            startActivity(intent, v, title, position);
         }
     }
 }

@@ -17,6 +17,7 @@ import com.frezrik.androidstudy.utils.SPHelper;
 public abstract class BaseActivity
         extends AppCompatActivity
 {
+    protected String mPosition;
     protected SPHelper mSPHelper;
 
     @Override
@@ -24,6 +25,7 @@ public abstract class BaseActivity
         super.onCreate(savedInstanceState);
 
         setTitle(getIntent().getStringExtra("title"));
+        mPosition = getIntent().getStringExtra("position");
         mSPHelper = SPHelper.getInstance(getApplicationContext());
     }
 
@@ -33,7 +35,7 @@ public abstract class BaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
     }
 
-    public void startActivity(Intent intent, View v, String title) {
+    public void startActivity(Intent intent, View v, String title, String position) {
         if (intent != null && intent.getComponent() != null && !intent.getComponent()
                 .getClassName()
                 .equals(MainActivity.class.getName()))
@@ -47,6 +49,7 @@ public abstract class BaseActivity
                                                                         v.getMeasuredWidth(),
                                                                         v.getMeasuredHeight());
             intent.putExtra("title", title);
+            intent.putExtra("position", position);
             startActivity(intent, opts.toBundle());
         }
     }
