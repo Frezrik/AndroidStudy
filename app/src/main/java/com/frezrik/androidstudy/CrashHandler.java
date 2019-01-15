@@ -7,25 +7,28 @@ import android.util.Log;
 
 public class CrashHandler implements UncaughtExceptionHandler {
 
-    private static CrashHandler instance;
     private static final String TAG = "CrashHandler";
-
+    volatile private static CrashHandler sCrashHandler;
 
     private CrashHandler() {
     }
 
     public synchronized static CrashHandler getInstance() {
-        if (instance == null) {
-            instance = new CrashHandler();
+        if (sCrashHandler == null) {
+            synchronized (CrashHandler.class){
+                if (sCrashHandler == null) {
+                    //使用Application Context
+                    sCrashHandler=new CrashHandler();
+                }
+            }
         }
-        return instance;
+        return sCrashHandler;
     }
 
     /**
      * 初始化，把当前对象设置成UncaughtExceptionHandler处理器
-     * @param ctx
      */
-    public void init(Context ctx) {
+    public void init() {
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 

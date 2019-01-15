@@ -42,8 +42,19 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api support.values()
 
+    api support.values()
+    
+    //leakcanary
+    debugApi deps.leakcanary.leakcanary_debug
+    releaseApi deps.leakcanary.leakcanary_release
+    debugApi deps.leakcanary.leakcanary_fragment
+
+    //transitive关键字依然传递依赖
+    api group: 'com.frezrik.support', name: 'utils', version: '1.0', transitive: true
+
+    //system api
     compileOnly files('libs/layoutlib.jar')
+
     testImplementation tests.junit
 }

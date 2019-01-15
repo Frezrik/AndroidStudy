@@ -10,6 +10,10 @@ def packageTime() {
 android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
+
+        println '========================='
+        //println project.getProperties().get("AUTHOR")
+
         applicationId "com.frezrik.androidstudy"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk

@@ -70,6 +70,13 @@ buildscript {
                     glide   : "com.github.bumptech.glide:glide:$versions.glide",
                     glide_ok: "com.github.bumptech.glide:okhttp3-integration:$versions.glide",
             ],
+
+            leakcanary:[
+                    leakcanary_debug           : 'com.squareup.leakcanary:leakcanary-android:1.6.3',
+                    leakcanary_release         : 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3',
+                    // Optional, if you use support library fragments:
+                    leakcanary_fragment  : 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+            ],
         ]
 
     }
@@ -77,11 +84,9 @@ buildscript {
     repositories {
         google()
         jcenter()
-        /*maven {// 添加Maven的本地依赖
-            url uri('./repository')
-        }*/
-        maven {
-            url "https://raw.githubusercontent.com/Frezrik/AndroidStudy/master/repository"
+        //maven { url "https://raw.github.com/Frezrik/Repository/master/plugin" }
+        maven {// 添加Maven的本地依赖
+            url uri('./plugin')
         }
     }
     dependencies {
@@ -90,6 +95,8 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.frezrik.plugin:component-build:1.0.0'
     }
 }
@@ -98,6 +105,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://raw.github.com/Frezrik/Repository/master/lilbrary" }
     }
 }
 
