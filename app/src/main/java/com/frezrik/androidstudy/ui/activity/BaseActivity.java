@@ -4,11 +4,10 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-
-import com.frezrik.androidstudy.utils.SPHelper;
 
 /**
  * Created by zhouming on 2018/3/22.
@@ -17,25 +16,29 @@ import com.frezrik.androidstudy.utils.SPHelper;
 public abstract class BaseActivity
         extends AppCompatActivity
 {
-    protected String mPosition;
-    protected SPHelper mSPHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setTitle(getIntent().getStringExtra("title"));
-        mPosition = getIntent().getStringExtra("position");
-        mSPHelper = SPHelper.getInstance(getApplicationContext());
     }
 
-    public void initToolBar(Toolbar toolbar, boolean homeAsUpEnabled, int resTitle) {
-        toolbar.setTitle(getString(resTitle));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    public void startActivity(Intent intent, View v, String title, String position) {
+    protected void setToolbar(AppCompatActivity act) {
+        ActionBar bar = act.getSupportActionBar();
+        if (bar != null) {
+            bar.setDisplayHomeAsUpEnabled(true);
+            setTitle(getIntent().getStringExtra("title"));
+        }
+    }
+
+    protected void startActivity(Intent intent, View v, String title, String position) {
         if (intent != null && intent.getComponent() != null && !intent.getComponent()
                 .getClassName()
                 .equals(MainActivity.class.getName()))

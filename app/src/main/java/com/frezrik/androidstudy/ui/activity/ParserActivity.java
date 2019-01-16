@@ -5,22 +5,24 @@ import android.view.MenuItem;
 
 import com.frezrik.androidstudy.R;
 
-public class JsonActivity
+public class ParserActivity
         extends BaseActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_json);
+        setContentView(R.layout.activity_parser);
 
         initView();
 
     }
 
     private void initView() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbar(this);
     }
+
+    //https://developers.google.cn/protocol-buffers/docs/proto3
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

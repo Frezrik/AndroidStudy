@@ -41,8 +41,9 @@
                 android:layout_height="wrap_content"
                 app:cv_color="@color/blue"
                 app:cv_image="@mipmap/ic_content_send"
-                app:cv_text_title="@string/json"
-                app:cv_text_left="@string/fast_json"/>
+                app:cv_text_title="@string/parser"
+                app:cv_text_left="@string/proto"
+                app:cv_text_mid_up="@string/json"/>
 
             <com.frezrik.androidstudy.ui.view.custom.CombineView
                 android:id="@+id/cv_im"

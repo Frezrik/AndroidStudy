@@ -1,12 +1,9 @@
 package com.frezrik.androidstudy.ui.activity;
 
 import android.os.Bundle;
-
 import android.util.Log;
-import android.widget.Toast;
 import com.frezrik.androidstudy.R;
 import com.frezrk.support.utils.Aes;
-import com.frezrk.support.utils.Des;
 
 public class ImRecActivity
         extends BaseActivity
@@ -23,6 +20,8 @@ public class ImRecActivity
     //https://blog.csdn.net/zmx729618/article/details/78125548
     //https://blog.csdn.net/z240336124/article/details/81385195
     private void initView() {
+        setToolbar(this);
+
         new Thread(new Runnable() {
             @Override
             public void run() {

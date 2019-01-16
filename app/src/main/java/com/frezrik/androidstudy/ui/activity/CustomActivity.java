@@ -17,8 +17,10 @@ public class CustomActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
 
+        setToolbar(this);
+
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        switch (mPosition) {
+        switch (getIntent().getStringExtra("position")) {
             case "LEFT":
                 ft = ft.replace(R.id.cv_container, new CombineViewFragment());
                 break;

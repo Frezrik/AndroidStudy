@@ -4,16 +4,12 @@
 
     <string name="action_settings">设置</string>
 
-    <string name="ndk">NDK</string>
-
     <string name="custom_view">自定义View</string>
     <string name="combine_view">组合控件</string>
 
-    <string name="json">JSON</string>
-    <string name="fast_json">FastJson</string>
+    <string name="parser">数据解析</string>
 
     <string name="imrec_view">图像处理</string>
-    <string name="camera2">Camera2</string>
     <string name="codebar">条码识别</string>
     <string name="ocrbc">银行卡识别</string>
 

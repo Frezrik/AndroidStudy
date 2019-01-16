@@ -9,7 +9,7 @@ import android.view.View;
 import com.frezrik.androidstudy.R;
 
 public class ComponentActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,9 @@ public class ComponentActivity
                 break;
             case R.id.btn_bc:
                 start_broadcast();
+                break;
+            case R.id.btn_ktx:
+                start_ktx();
                 break;
         }
     }
@@ -63,5 +66,8 @@ public class ComponentActivity
         intent.putExtra("msg", "msg");
         intent.setData(Uri.fromParts("study", getPackageName(), null));
         sendBroadcast(intent);
+    }
+
+    private void start_ktx() {
     }
 }

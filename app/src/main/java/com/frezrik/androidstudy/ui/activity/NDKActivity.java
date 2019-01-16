@@ -30,9 +30,6 @@ public class NDKActivity
     }
 
     private void initView() {
-        setTitle(R.string.ndk);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mTv = (TextView) findViewById(R.id.tv);
     }
 

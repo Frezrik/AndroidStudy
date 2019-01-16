@@ -16,20 +16,17 @@ import com.frezrik.androidstudy.ui.view.custom.CombineView;
 
 public class MainActivity
         extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, CombineView.OnItemClickListener
-{
+        implements NavigationView.OnNavigationItemSelectedListener, CombineView.OnItemClickListener {
 
-    private DrawerLayout          mDrawer;
+    private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mToggle;
-    private NavigationView        mNavigationView;
-    private Toolbar               mToolbar;
+    private NavigationView mNavigationView;
     private long lastTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         initView();
         initListener();
@@ -39,15 +36,15 @@ public class MainActivity
     private void initView() {
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        initToolBar(mToolbar, true, R.string.app_name);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToggle = new ActionBarDrawerToggle(this,
-                                            mDrawer,
-                                            mToolbar,
-                                            R.string.navigation_drawer_open,
-                                            R.string.navigation_drawer_close);
+                mDrawer,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
 
         CombineView cv_custom = (CombineView) findViewById(R.id.cv_custom);
         CombineView cv_json = (CombineView) findViewById(R.id.cv_json);
@@ -87,9 +84,11 @@ public class MainActivity
                 break;
             case R.id.nav_ndk:
                 intent = new Intent(this, NDKActivity.class);
+                intent.putExtra("title", "NDK");
                 break;
             case R.id.nav_component:
                 intent = new Intent(this, ComponentActivity.class);
+                intent.putExtra("title", "Component");
                 break;
             case R.id.nav_share:
                 break;
@@ -100,7 +99,7 @@ public class MainActivity
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
-        if(intent != null) {
+        if (intent != null) {
             startActivity(intent);
         }
         return true;
@@ -115,7 +114,7 @@ public class MainActivity
                 intent = new Intent(this, CustomActivity.class);
                 break;
             case "cv_json":
-                intent = new Intent(this, JsonActivity.class);
+                intent = new Intent(this, ParserActivity.class);
                 break;
             case "cv_im":
                 intent = new Intent(this, ImRecActivity.class);
@@ -124,7 +123,7 @@ public class MainActivity
                 break;
         }
 
-        if(intent != null) {
+        if (intent != null) {
             startActivity(intent, v, title, position);
         }
     }
