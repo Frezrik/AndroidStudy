@@ -1,1 +1,1 @@
-include ':app', ':commonlib', 'plugin_component'
+include ':app', ':commonlib', ':kotlin', 'plugin_component'

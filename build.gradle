@@ -29,7 +29,7 @@ buildscript {
                 v7_cardView    : "com.android.support:cardview-v7:${versions.supportLibrary}",
                 support_v4     : "com.android.support:support-v4:${versions.supportLibrary}",
                 annotations    : "com.android.support:support-annotations:${versions.supportLibrary}",
-                constraint     : 'com.android.support.constraint:constraint-layout:1.0.2',
+                constraint     : 'com.android.support.constraint:constraint-layout:1.1.3',
                 multidex       : 'com.android.support:multidex:1.0.3',
         ]
 
