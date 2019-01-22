@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -22,12 +23,11 @@ import com.frezrik.androidstudy.R;
  */
 
 public class CombineView
-        extends LinearLayout
-        implements View.OnClickListener
-{
+        extends ConstraintLayout
+        implements View.OnClickListener {
 
-    private int    mColor;
-    private int    mImage;
+    private int mColor;
+    private int mImage;
     private String mTitle;
     private String mLeft;
     private String mMid_up;
@@ -36,7 +36,7 @@ public class CombineView
     private String mRight_down;
 
     private OnItemClickListener mOnItemClickListener;
-    private String              mTag;
+    private String mTag;
 
     public CombineView(Context context) {
         this(context, null);
@@ -56,13 +56,9 @@ public class CombineView
 
     private void initView(Context context) {
         LayoutInflater.from(context)
-                .inflate(R.layout.view_combine, this, true);
+                .inflate(R.layout.view_combine0, this, true);
 
-        LinearLayout ll_left = findViewById(R.id.ll_left);
-        LinearLayout ll_mid_up = findViewById(R.id.ll_mid_up);
-        LinearLayout ll_mid_down = findViewById(R.id.ll_mid_down);
-        LinearLayout ll_right_up = findViewById(R.id.ll_right_up);
-        LinearLayout ll_right_down = findViewById(R.id.ll_right_down);
+        View container_left = findViewById(R.id.container_left);
         ImageView iv_left = findViewById(R.id.iv_left);
         TextView tv_title = findViewById(R.id.tv_title);
         TextView tv_left = findViewById(R.id.tv_left);
@@ -71,11 +67,12 @@ public class CombineView
         TextView tv_right_up = findViewById(R.id.tv_right_up);
         TextView tv_right_down = findViewById(R.id.tv_right_down);
 
-        ll_left.setBackground(getDrawable(mColor));
-        ll_mid_up.setBackground(getDrawable(mColor));
-        ll_mid_down.setBackground(getDrawable(mColor));
-        ll_right_up.setBackground(getDrawable(mColor));
-        ll_right_down.setBackground(getDrawable(mColor));
+        container_left.setBackground(getDrawable(mColor));
+        tv_mid_up.setBackground(getDrawable(mColor));
+        tv_mid_down.setBackground(getDrawable(mColor));
+        tv_right_up.setBackground(getDrawable(mColor));
+        tv_right_down.setBackground(getDrawable(mColor));
+
         iv_left.setImageResource(mImage);
         tv_title.setTextColor(mColor);
         tv_title.setText(TextUtils.isEmpty(mTitle) ? "" : mTitle);
@@ -85,11 +82,11 @@ public class CombineView
         tv_right_up.setText(TextUtils.isEmpty(mRight_up) ? "" : mRight_up);
         tv_right_down.setText(TextUtils.isEmpty(mRight_down) ? "" : mRight_down);
 
-        ll_left.setOnClickListener(this);
-        ll_mid_up.setOnClickListener(this);
-        ll_mid_down.setOnClickListener(this);
-        ll_right_up.setOnClickListener(this);
-        ll_right_down.setOnClickListener(this);
+        container_left.setOnClickListener(this);
+        tv_mid_up.setOnClickListener(this);
+        tv_mid_down.setOnClickListener(this);
+        tv_right_up.setOnClickListener(this);
+        tv_right_down.setOnClickListener(this);
     }
 
     private void initTypeArray(Context context, @Nullable AttributeSet attrs) {
@@ -110,19 +107,19 @@ public class CombineView
         if (mOnItemClickListener != null) {
             v.setTag(mTag);
             switch (v.getId()) {
-                case R.id.ll_left:
+                case R.id.container_left:
                     mOnItemClickListener.onItemClick(v, mLeft, "LEFT");
                     break;
-                case R.id.ll_mid_up:
+                case R.id.tv_mid_up:
                     mOnItemClickListener.onItemClick(v, mMid_up, "MID_UP");
                     break;
-                case R.id.ll_mid_down:
+                case R.id.tv_mid_down:
                     mOnItemClickListener.onItemClick(v, mMid_down, "MID_DOWN");
                     break;
-                case R.id.ll_right_up:
+                case R.id.tv_right_up:
                     mOnItemClickListener.onItemClick(v, mRight_up, "RIGHT_UP");
                     break;
-                case R.id.ll_right_down:
+                case R.id.tv_right_down:
                     mOnItemClickListener.onItemClick(v, mRight_down, "RIGHT_DOWN");
                     break;
             }
