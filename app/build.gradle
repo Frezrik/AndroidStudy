@@ -86,8 +86,31 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //system api
+    compileOnly files('libs/layoutlib.jar')
 
     implementation project(':commonlib')
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+}
+
+preBuild {
+    doLast {
+        def imlFile = file( project.name + ".iml")
+        println '======Change ' + project.name + '.iml'
+        try {
+            def parsedXml = (new XmlParser()).parse(imlFile)
+            //def libNode = .contains('layoutlib.jar');
+            println parsedXml.component[1].orderEntry.find { it.@name }
+            //parsedXml.component[1].remove(libNode)
+
+            //println '=====what:' + sdkString
+            //new Node(parsedXml.component[1], 'orderEntry', ['type': 'jdk', 'jdkName': sdkString, 'jdkType': 'Android SDK'])
+            //groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
+        } catch (FileNotFoundException e) {
+            // nop, iml not found
+            println "no iml found"
+        }
+    }
 }
