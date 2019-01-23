@@ -3,6 +3,7 @@ package com.frezrik.androidstudy.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 import com.frezrik.androidstudy.R;
+import com.frezrik.androidstudy.framework.SampleWindow;
 
 public class FrameworkActivity  extends BaseActivity {
 
@@ -25,6 +26,16 @@ public class FrameworkActivity  extends BaseActivity {
     }
 
     private void startWM() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new SampleWindow().Run();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
 

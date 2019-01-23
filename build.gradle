@@ -113,7 +113,7 @@ allprojects {
     }
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
-            options.compilerArgs.add('-Xbootclasspath/p:app\\libs\\layoutlib.jar')
+            options.compilerArgs.add('-Xbootclasspath/p:app/libs/layoutlib.jar')
         }
     }
 }

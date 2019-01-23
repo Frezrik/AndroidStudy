@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.frezrik.plugin'
 
-def packageTime() {
-    return new Date().format("yyyyMMdd", TimeZone.getDefault())
+def packageTime = {
+    new Date().format("yyyyMMdd", TimeZone.getDefault())
 }
 
 android {
@@ -81,6 +81,13 @@ android {
         }
     }
 
+    lintOptions {
+        //checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
     resourcePrefix "app_"
 
 }
@@ -98,18 +105,27 @@ dependencies {
 preBuild {
     doLast {
         def imlFile = file( project.name + ".iml")
-        println '======Change ' + project.name + '.iml'
+        println '=>Change ' + project.name + '.iml'
         try {
-            def parsedXml = (new XmlParser()).parse(imlFile)
-            //def libNode = .contains('layoutlib.jar');
-            println parsedXml.component[1].orderEntry.find { it.@name }
-            //parsedXml.component[1].remove(libNode)
+            def parsedXml = new XmlParser().parse(imlFile)
 
-            //println '=====what:' + sdkString
-            //new Node(parsedXml.component[1], 'orderEntry', ['type': 'jdk', 'jdkName': sdkString, 'jdkType': 'Android SDK'])
-            //groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
+            def libsubPath;
+            if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+                libsubPath = '\\app\\libs\\layoutlib.jar:unspecified@jar'
+            } else {
+                libsubPath = '/app/libs/layoutlib.jar:unspecified@jar'
+            }
+            def libPath = 'Gradle: __local_aars__:' + project.rootDir.getAbsolutePath().replace(':', '.') + libsubPath
+            def libNode = parsedXml.component[1].orderEntry.find { it.@name == libPath }
+            def contentNode = parsedXml.component[1].find { it.name() == 'content' }
+
+            if(libNode != null) {
+                parsedXml.component[1].remove(libNode)
+                contentNode.plus{new Node( parsedXml.component[1], 'orderEntry', ['type': 'library', 'name': libPath, 'level': 'project']) }
+            }
+
+            groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
         } catch (FileNotFoundException e) {
-            // nop, iml not found
             println "no iml found"
         }
     }

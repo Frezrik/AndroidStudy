@@ -90,8 +90,7 @@ public class SampleWindow {
     }
 
     public void Run() throws Exception {
-        Looper.prepareMainLooper();
-
+        Looper.prepare();
         // 获取wms服务
         IWindowManager wms = IWindowManager.Stub
                 .asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));

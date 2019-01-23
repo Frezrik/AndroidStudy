@@ -2,7 +2,6 @@ package com.frezrik.androidstudy;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.ServiceManager;
 import android.support.multidex.MultiDex;
 import com.frezrik.androidstudy.service.DeviceManagerService;
 import com.squareup.leakcanary.LeakCanary;
