@@ -25,6 +25,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.view.WindowManagerGlobal;
+import com.android.internal.os.IResultReceiver;
 
 public class SampleWindow {
     public static void main(String[] args) {
@@ -141,7 +142,7 @@ public class SampleWindow {
         mSession.add(mWindow, 0, mLp, View.VISIBLE, mContentInsets, mStableInsets, mInputChannel);
         // 通过IWindowSession要求WMS对本窗口进行重新布局，经过这个操作后，WMS将会为窗口创建一块用于绘制的Surface并保存在参数mSurface中。
         mSession.relayout(mWindow, 0, mLp, mLp.width, mLp.height, View.VISIBLE, 0, mFrame,
-                mOverscanInsets, mContentInsets, mVisibleInsets, mStableInsets,new Rect(), mConfig, mSurface);
+                mOverscanInsets, mContentInsets, mVisibleInsets, mStableInsets,new Rect(), new Rect(), mConfig, mSurface);
 
         if (!mSurface.isValid()) {
             throw new RuntimeException("Failed creating Suface.");
@@ -189,94 +190,74 @@ public class SampleWindow {
     class MyWindow extends IWindow.Stub {
 
         @Override
-        public void executeCommand(String paramString1, String paramString2,
-                                   ParcelFileDescriptor paramParcelFileDescriptor) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void executeCommand(String s, String s1, ParcelFileDescriptor parcelFileDescriptor) throws RemoteException {
 
         }
 
         @Override
-        public void resized(Rect rect, Rect rect1, Rect rect2, Rect rect3, Rect rect4, Rect rect5, boolean b, Configuration configuration) throws RemoteException {
+        public void resized(Rect rect, Rect rect1, Rect rect2, Rect rect3, Rect rect4, Rect rect5, boolean b, Configuration configuration, Rect rect6, boolean b1, boolean b2) throws RemoteException {
 
         }
 
         @Override
-        public void moved(int paramInt1, int paramInt2) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void moved(int i, int i1) throws RemoteException {
 
         }
 
         @Override
-        public void dispatchAppVisibility(boolean paramBoolean) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void dispatchAppVisibility(boolean b) throws RemoteException {
 
         }
 
         @Override
         public void dispatchGetNewSurface() throws RemoteException {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
-        public void windowFocusChanged(boolean paramBoolean1, boolean paramBoolean2)
-                throws RemoteException {
-            // TODO Auto-generated method stub
+        public void windowFocusChanged(boolean b, boolean b1) throws RemoteException {
 
         }
 
         @Override
-        public void closeSystemDialogs(String paramString) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void closeSystemDialogs(String s) throws RemoteException {
 
         }
 
         @Override
-        public void dispatchWallpaperOffsets(float paramFloat1, float paramFloat2,
-                                             float paramFloat3, float paramFloat4,
-                                             boolean paramBoolean) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void dispatchWallpaperOffsets(float v, float v1, float v2, float v3, boolean b) throws RemoteException {
 
         }
 
         @Override
-        public void dispatchWallpaperCommand(String paramString, int paramInt1, int paramInt2,
-                                             int paramInt3,
-                                             Bundle paramBundle, boolean paramBoolean) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void dispatchWallpaperCommand(String s, int i, int i1, int i2, Bundle bundle, boolean b) throws RemoteException {
 
         }
 
         @Override
-        public void dispatchDragEvent(DragEvent paramDragEvent) throws RemoteException {
-            // TODO Auto-generated method stub
+        public void dispatchDragEvent(DragEvent dragEvent) throws RemoteException {
 
         }
 
         @Override
-        public void dispatchSystemUiVisibilityChanged(int paramInt1, int paramInt2, int paramInt3,
-                                                      int paramInt4)
-                throws RemoteException {
-            // TODO Auto-generated method stub
+        public void updatePointerIcon(float v, float v1) throws RemoteException {
 
         }
 
         @Override
-        public void onAnimationStarted(int i) throws RemoteException {
-
-        }
-
-        @Override
-        public void onAnimationStopped() throws RemoteException {
+        public void dispatchSystemUiVisibilityChanged(int i, int i1, int i2, int i3) throws RemoteException {
 
         }
 
         @Override
         public void dispatchWindowShown() throws RemoteException {
-            // TODO Auto-generated method stub
 
         }
 
+        @Override
+        public void requestAppKeyboardShortcuts(IResultReceiver iResultReceiver, int i) throws RemoteException {
+
+        }
     }
 }
 
