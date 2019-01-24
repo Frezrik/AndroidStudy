@@ -98,8 +98,6 @@ dependencies {
     compileOnly files('libs/layoutlib.jar')
 
     implementation project(':commonlib')
-
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 
 preBuild {

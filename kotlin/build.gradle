@@ -27,7 +27,9 @@ android {
 }
 
 dependencies {
-    implementation project(':commonlib')
+    implementation (project(':commonlib')) {
+        exclude group:'com.frezrik.support'
+    }
 
     // Room components
     implementation "android.arch.persistence.room:runtime:1.1.1"
