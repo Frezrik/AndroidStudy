@@ -1,4 +1,4 @@
-package com.frezrik.androidstudy.framework;
+package com.frezrik.framework;
 
 import android.content.Context;
 import android.content.res.Configuration;

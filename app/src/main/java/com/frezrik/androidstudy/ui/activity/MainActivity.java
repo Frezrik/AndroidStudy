@@ -81,8 +81,6 @@ public class MainActivity
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
-                intent = new Intent(this, FrameworkActivity.class);
-                intent.putExtra("title", "Framework");
                 break;
             case R.id.nav_ndk:
                 intent = new Intent(this, NDKActivity.class);

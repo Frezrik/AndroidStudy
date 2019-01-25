@@ -2,6 +2,8 @@
 
 buildscript {
     ext {
+        isModule = false
+
         versions = [
             app           : 2.0,
             compileSdk    : 27,
@@ -113,7 +115,7 @@ allprojects {
     }
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
-            options.compilerArgs.add('-Xbootclasspath/p:app/libs/layoutlib.jar')
+            options.compilerArgs.add('-Xbootclasspath/p:commonlib/libs/layoutlib.jar')
         }
     }
 }

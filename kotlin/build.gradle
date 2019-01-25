@@ -27,8 +27,10 @@ android {
 }
 
 dependencies {
-    implementation (project(':commonlib')) {
-        exclude group:'com.frezrik.support'
+    if (isModule.toBoolean()) {
+        implementation (project(':commonlib')) {
+            exclude group:'com.frezrik.support'
+        }
     }
 
     // Room components
