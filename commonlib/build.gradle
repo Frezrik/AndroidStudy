@@ -41,7 +41,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     api support.values()
     
@@ -59,7 +59,7 @@ dependencies {
 
 
     //system api
-    compileOnly files('libs/layoutlib.jar')
+    compileOnly files('../app/libs/layoutlib.jar')
 
     testImplementation tests.junit
 }
