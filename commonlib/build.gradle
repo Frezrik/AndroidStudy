@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         if (!isModule.toBoolean()) {
-            applicationId "com.frezrik.androidstudy"
+            applicationId "com.frezrik.framework"
             multiDexEnabled true
         }
         minSdkVersion versions.minSdk
@@ -73,6 +73,8 @@ android {
 
                     if (variant.buildType.name == 'debug') {
                         def manifestFile = file("$manifestOutputDirectory/AndroidManifest.xml")
+                        println "====>" + manifestFile.getPath()
+
                         def updatedContent = manifestFile.getText('UTF-8').replace("frezrik.uid.framwork", "android.uid.system")
                         manifestFile.write(updatedContent, 'UTF-8')
                     }
