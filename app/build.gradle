@@ -68,9 +68,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     if (isModule.toBoolean()) {
         implementation project(':commonlib')
     }
+
+    implementation project(':core')
 }

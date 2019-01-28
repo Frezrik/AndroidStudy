@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        isModule = false
+        isModule = true
 
         versions = [
             app           : 2.0,

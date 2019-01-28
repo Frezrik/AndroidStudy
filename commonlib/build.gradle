@@ -95,9 +95,7 @@ android {
 }
 
 dependencies {
-    //implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    api support.values()
+    implementation project(':core')
 
     //leakcanary
     debugApi deps.leakcanary.leakcanary_debug

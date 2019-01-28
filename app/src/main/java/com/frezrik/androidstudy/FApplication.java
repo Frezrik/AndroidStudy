@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.frezrik.androidstudy.service.DeviceManagerService;
+import com.frezrik.common.utils.ConvertUtilImpl;
+import com.frezrik.core.Core;
+import com.frezrik.core.api.ConvertUtil;
 import com.squareup.leakcanary.LeakCanary;
 
 public class FApplication extends Application {
@@ -33,6 +36,11 @@ public class FApplication extends Application {
 
         startDeviceService();
 
+        initCore();
+    }
+
+    private void initCore() {
+        Core.registerService(ConvertUtil.class, new ConvertUtilImpl());
     }
 
     private void startDeviceService() {

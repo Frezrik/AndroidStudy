@@ -27,11 +27,13 @@ android {
 }
 
 dependencies {
-    if (isModule.toBoolean()) {
-        implementation (project(':commonlib')) {
+    /*if (isModule.toBoolean()) {
+        implementation project(':commonlib') {
             exclude group:'com.frezrik.support'
         }
-    }
+    }*/
+
+    implementation project(':core')
 
     // Room components
     implementation "android.arch.persistence.room:runtime:1.1.1"

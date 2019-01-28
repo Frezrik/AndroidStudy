@@ -1,8 +1,11 @@
 package com.frezrik.common.utils;
 
-public class ConvertUtils {
+import com.frezrik.core.api.ConvertUtil;
 
-    public static byte[] randomBytes(int length) {
+public class ConvertUtilImpl implements ConvertUtil {
+
+    @Override
+    public byte[] randomBytes(int length) {
         if (length < 0)
             return new byte[0];
 
@@ -10,7 +13,6 @@ public class ConvertUtils {
         for (int i = 0; i < length; i++) {
             b[i] = (byte) (Math.random() * 0xff);
         }
-
         return b;
     }
 }
