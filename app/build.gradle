@@ -63,6 +63,11 @@ android {
         abortOnError false
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     resourcePrefix "app_"
 
 }
@@ -71,8 +76,8 @@ dependencies {
     //implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     if (isModule.toBoolean()) {
-        implementation project(':commonlib')
+        implementation project(':libCommon')
     }
 
-    implementation project(':core')
+    api project(':core')
 }

@@ -38,4 +38,11 @@ android {
 
 dependencies {
     api support.values()
+
+    api project(':libRouterAnnotation')
+
+    //leakcanary
+    debugApi deps.leakcanary.leakcanary_debug
+    releaseApi deps.leakcanary.leakcanary_release
+    debugApi deps.leakcanary.leakcanary_fragment
 }
