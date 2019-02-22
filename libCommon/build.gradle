@@ -96,7 +96,7 @@ android {
 
 dependencies {
     implementation project(':core')
-    annotationProcessor project(':libRouter')
+    annotationProcessor project(':libRouterCompiler')
 
     //transitive关键字,传递依赖
     //api group: 'com.frezrik.support', name: 'utils', version: '1.0', transitive: true

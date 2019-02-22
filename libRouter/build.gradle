@@ -1,13 +1,24 @@
-apply plugin: 'java'
+apply plugin: 'com.android.library'
 
-def rtPath = {
-    System.getProperty("java.home") + '/lib/rt.jar'
+android {
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
-    compileOnly files(rtPath())
-    implementation project(':libRouterAnnotation')
+    implementation support.values()
 
-    implementation 'com.google.auto.service:auto-service:1.0-rc4'
-    implementation 'com.squareup:javapoet:1.9.0'
+    api project(':libRouterAnnotation')
 }

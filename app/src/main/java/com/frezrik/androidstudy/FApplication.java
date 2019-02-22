@@ -34,11 +34,6 @@ public class FApplication extends Application {
 
         startDeviceService();
 
-        initCore();
-    }
-
-    private void initCore() {
-        Core.registerService(ConvertUtil.class);
     }
 
     private void startDeviceService() {

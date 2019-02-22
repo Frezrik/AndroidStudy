@@ -1,1 +1,1 @@
-include ':app', ':libCommon', ':libRouter', ':libRouterAnnotation', ':kotlin', ':core', ':module_ndk', 'plugin_component'
+include ':app', ':libCommon', ':libRouter', ':libRouterAnnotation', ':libRouterCompiler', ':kotlin', ':core', ':module_ndk', 'plugin_component'

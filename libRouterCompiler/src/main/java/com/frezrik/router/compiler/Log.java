@@ -1,4 +1,4 @@
-package com.frezrik.router.utils;
+package com.frezrik.router.compiler;
 
 import javax.annotation.processing.Messager;
 import javax.tools.Diagnostic;
