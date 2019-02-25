@@ -3,23 +3,26 @@ package com.frezrik.router.compiler;
 import com.frezrik.router.annotation.ApiImpl;
 import com.frezrik.router.annotation.BindApi;
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.JavaFile;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.*;
 
 @AutoService(Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes({Constants.ANNOTATION_APIIMPL, Constants.ANNOTATION_BINDAPI})
 public class ApiProcessor extends AbstractProcessor {
 
-    //private Map<String, Creat> mProxyMap = new HashMap<>();
     private Log log;
     private Elements elementUtils;
 
@@ -36,52 +39,75 @@ public class ApiProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        collectInfo(roundEnv);
+        log.i(">>>>> ApiProcessor process <<<<<");
 
-        writeToFile(roundEnv);
+        Map<String, String> apiTables = new HashMap<>();
+        Set<String> implSet;
+        // 获取ApiTables
+        Set<? extends Element> apiNode = roundEnv.getElementsAnnotatedWith(ApiImpl.class);
+        for (Element element : apiNode) {
+            if(element instanceof TypeElement) {
+                TypeElement typeElement = (TypeElement) element;
+                String implName = typeElement.getQualifiedName().toString();
+
+                if(!apiTables.containsKey(implName)) {
+                    List<? extends TypeMirror> interfaces = typeElement.getInterfaces();
+
+                    if (interfaces != null && interfaces.size() > 0) {
+                        String ifName = interfaces.get(0).toString();
+                        apiTables.put(implName, ifName);
+                        log.i("======>>>>>" + implName + ":" + ifName);
+                    }
+                }
+            }
+        }
+
+        // 获取BindApi
+        Map<String, Set<String>> bindTables = new HashMap<>();
+        Set<String> fieldSet;
+        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(BindApi.class);
+        for (Element element : elements) {
+            if (element instanceof VariableElement) {
+                VariableElement variableElement = (VariableElement) element;
+                TypeMirror fieldType = element.asType();
+                TypeElement classElement = (TypeElement) variableElement.getEnclosingElement();
+
+                String className = classElement.getQualifiedName().toString();
+
+                if (bindTables.containsKey(className)) {
+                    fieldSet = bindTables.get(className);
+                } else {
+                    fieldSet = new HashSet<>();
+                }
+
+                String fieldName = variableElement.getSimpleName().toString();
+
+                if (!fieldSet.contains(fieldName)) {
+                    fieldSet.add(fieldName);
+                    bindTables.put(className, fieldSet);
+                    log.i("======>>>>>" + className + "#" + fieldType + "#" + fieldName);
+                }
+
+            }
+        }
+
+        //writeToFile(apiTables, bindTables);
 
         return true;
     }
 
+    private void writeToFile(Map<String,Set<String>> apiTables, Map<String,Set<String>> bindTables) {
+        //com.frezrik.common.utils.ConvertUtilImpl:com.frezrik.core.api.ConvertUtil
+        //com.frezrik.androidstudy.service.DeviceManagerService#convertUtil
+        for(Map.Entry<String, Set<String>> entry : apiTables.entrySet()) {
+            String className = entry.getKey();
+            Set<String> fieldSet = entry.getValue();
 
-    private void collectInfo(RoundEnvironment roundEnv) {
-        Set<? extends Element> apiNode = roundEnv.getElementsAnnotatedWith(ApiImpl.class);
-        if (apiNode != null && apiNode.size() != 0) {
-            log.i(">>>>> ApiProcessor process <<<<<");
 
-            for (Element element : apiNode) {
-                if (element.getKind().isClass()) {
-                    String impl = elementUtils.getPackageOf(element).getQualifiedName().toString() + "." + element.getSimpleName().toString();
-                    log.i("======>>>>>" + impl);
-                }
-            }
-        }
-    }
-
-    /**
-     * 生成$$BindApi
-     */
-    private void writeToFile(RoundEnvironment roundEnv) {
-// 获取源文件中带有 BindView 注解的域
-        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(BindApi.class);
-        log.i("======>>>>>" + elements.size());
-        for (Element element : elements) {
-            VariableElement variableElement = (VariableElement) element;
-            TypeElement classElement = (TypeElement) variableElement.getEnclosingElement();
-            String fullClassName = classElement.getQualifiedName().toString();
-
-            log.i("======>>>>>" + fullClassName);
-            /*Creator proxy = mProxyMap.get(fullClassName);
-            if (proxy == null) {
-                proxy = new Creator(mElementUtils, classElement);
-                mProxyMap.put(fullClassName, proxy);
-            }
-            BindView bindAnnotation = variableElement.getAnnotation(BindView.class);
-            int id = bindAnnotation.value();
-            proxy.putFieldElement(id, variableElement);*/
         }
 
         // 生成java代码
+        //JavaFile javaFile = JavaFile.builder(bindingClassName.packageName(), bindingConfiguration);
         /*for (String key : mProxyMap.keySet()) {
             Creator proxyInfo = mProxyMap.get(key);
             JavaFile javaFile = JavaFile.builder(proxyInfo.getPackageName(), proxyInfo.generateJavaCode())
@@ -94,8 +120,6 @@ public class ApiProcessor extends AbstractProcessor {
                 e.printStackTrace();
             }
         }*/
-
-
     }
 
     private File createApiTables() {

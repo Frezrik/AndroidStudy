@@ -80,5 +80,7 @@ dependencies {
     }
 
     api project(':core')
+
+    annotationProcessor project(':libRouterCompiler')
     kapt project(':libRouterCompiler')
 }
