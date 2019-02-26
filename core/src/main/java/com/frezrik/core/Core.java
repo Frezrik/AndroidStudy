@@ -11,11 +11,8 @@ public class Core {
     public static void bind(Object obj) {
         String classFullName = obj.getClass().getName() + "$$BindApi";
         try {
-            // 2、
             Class proxy = Class.forName(classFullName);
-            // 3、
             Constructor constructor = proxy.getConstructor(obj.getClass());
-            // 4、
             constructor.newInstance(obj);
         } catch (Exception e) {
             e.printStackTrace();
