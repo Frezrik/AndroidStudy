@@ -30,6 +30,7 @@ public class ApiProcessor extends AbstractProcessor {
     private Elements elementUtils;
     private Map<ClassName, ClassName> tempTables;
 
+    private static final ClassName UNBINDER = ClassName.get("com.frezrik.router", "Unbinder");
     private static final String API_PATH = "api_tables";
 
     @Override
@@ -60,7 +61,7 @@ public class ApiProcessor extends AbstractProcessor {
                 if (interfaces != null && interfaces.size() > 0) {
                     String ifName = interfaces.get(0).toString();
                     writeApiTables(implName, ifName);
-                    //log.i("======>>>>>" + implName + ":" + ifName);
+                    log.i("======>>>>>" + implName + ":" + ifName);
                 }
             }
         }
@@ -110,14 +111,14 @@ public class ApiProcessor extends AbstractProcessor {
                 }
             }
 
-            deleteApiTables();
-
             if (bindTables.size() != 0) {
                 log.i("     >>>>> WriteToFile <<<<<");
                 writeToFile(bindTables);
+
+                deleteApiTables();
+                bindTables.clear();
             }
 
-            bindTables.clear();
         }
 
         return true;
@@ -130,17 +131,23 @@ public class ApiProcessor extends AbstractProcessor {
             String bindName = targetName.simpleName() + "$$BindApi";
             MethodSpec.Builder cons = MethodSpec.constructorBuilder()
                     .addModifiers(PUBLIC)
-                    .addParameter(TypeName.OBJECT, "target");
+                    .addParameter(targetName, "target");
 
             Set<BindingSet> bss = entry.getValue();
             for(BindingSet bs : bss) {
                 cons.addStatement("$T.registerService($T.class, new $T())", router, bs.fieldType, bs.fieldTypeImpl);
-                cons.addStatement("(($T) target).$L = $T.service($T.class)", targetName, bs.field, router, bs.fieldType);
+                cons.addStatement("target.$L = $T.service($T.class)", bs.field, router, bs.fieldType);
             }
+
+            MethodSpec.Builder unbind = MethodSpec.methodBuilder("unbind")
+                    .addAnnotation(Override.class)
+                    .addModifiers(PUBLIC);
 
             TypeSpec bindNameType = TypeSpec.classBuilder(bindName)
                     .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                    .addSuperinterface(UNBINDER)
                     .addMethod(cons.build())
+                    .addMethod(unbind.build())
                     .build();
 
             JavaFile javaFile = JavaFile.builder(targetName.packageName(), bindNameType)
@@ -210,6 +217,7 @@ public class ApiProcessor extends AbstractProcessor {
     private void deleteApiTables() {
         File file = new File(API_PATH);
         if (file.exists()) {
+            log.i("     >>>>> DeleteApiTables <<<<<");
             file.delete();
         }
     }
@@ -224,22 +232,25 @@ public class ApiProcessor extends AbstractProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private HashMap<ClassName, ClassName> readApiTables() {
         HashMap<ClassName, ClassName> tables = new HashMap<>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(API_PATH));
-            String s;
-            while((s = br.readLine()) != null) {
-                if(s.contains(":")) {
-                    String[] split = s.split(":");
-                    tables.put(ClassName.bestGuess(split[1]), ClassName.bestGuess(split[0]));
+        File file = new File(API_PATH);
+        if (file.exists()) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String s;
+                while ((s = br.readLine()) != null) {
+                    if (s.contains(":")) {
+                        String[] split = s.split(":");
+                        tables.put(ClassName.bestGuess(split[1]), ClassName.bestGuess(split[0]));
+                    }
                 }
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return tables;
     }

@@ -52,6 +52,7 @@ public class FApplication extends Application {
 
         Router.bind(this);
 
+
         byte[] bytes = convertUtil.randomBytes(5);
         for (byte b : bytes) {
             Log.d("zmzm", "" + b);

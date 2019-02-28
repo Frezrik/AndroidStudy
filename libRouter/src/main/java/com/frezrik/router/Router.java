@@ -12,39 +12,45 @@ public class Router {
 
     private static final String TAG = "Router";
     private static boolean debug = true;
-    static final Map<Class<?>, Constructor> BINDINGS = new LinkedHashMap<>();
+    static final Map<Class<?>, Constructor<? extends Unbinder>> BINDINGS = new LinkedHashMap<>();
     static final LruCache serviceLruCache = new LruCache(50);
 
     public static void setDebug(boolean debug) {
         Router.debug = debug;
     }
 
-    public static void bind(@NonNull Object obj) {
-        String classFullName = obj.getClass().getName() + "$$BindApi";
-        if (debug) Log.d(TAG, "classFullName: " + classFullName);
+    public static void bind(@NonNull Object target) {
+        Class<?> targetClass = target.getClass();
+        if (debug) Log.d(TAG, "Looking up binding for " + targetClass.getName());
         try {
-            Constructor constructor = findBindingConstructorForClass(classFullName.getClass());
-            constructor.newInstance(new Object[]{obj});
+            Constructor<? extends Unbinder> constructor = findBindingConstructorForClass(targetClass);
+            constructor.newInstance(target);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
-    private static Constructor findBindingConstructorForClass(Class<?> bindingClass) {
-        Constructor bindingCtor = BINDINGS.get(bindingClass);
-        if (bindingCtor != null || BINDINGS.containsKey(bindingClass)) {
+    private static Constructor<? extends Unbinder> findBindingConstructorForClass(Class<?> cls) {
+        Constructor<? extends Unbinder> bindingCtor = BINDINGS.get(cls);
+        if (bindingCtor != null || BINDINGS.containsKey(cls)) {
             if (debug) Log.d(TAG, "HIT: Cached in binding map.");
             return bindingCtor;
         }
 
+        String clsName = cls.getName();
+
         try {
-            bindingCtor = bindingClass.getConstructor(bindingClass);
-            if (debug) Log.d(TAG, "HIT: Loaded binding class and constructor.");
+            Class<?> bindingClass = cls.getClassLoader().loadClass(clsName + "$$BindApi");
+            bindingCtor = (Constructor<? extends Unbinder>) bindingClass.getConstructor(cls);
+            if (debug) Log.d(TAG, "HIT: Loaded binding class and Constructor<? extends Unbinder>.");
+        } catch (ClassNotFoundException e) {
+            if (debug) Log.d(TAG, "Not found. Trying superclass " + cls.getSuperclass().getName());
+            bindingCtor = findBindingConstructorForClass(cls.getSuperclass());
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException("Unable to find binding constructor for " + bindingClass.getName(), e);
+            throw new RuntimeException("Unable to find binding Constructor<? extends Unbinder> for " + clsName, e);
         }
-        BINDINGS.put(bindingClass, bindingCtor);
+        BINDINGS.put(cls, bindingCtor);
         return bindingCtor;
     }
 
@@ -57,7 +63,7 @@ public class Router {
     }
 
     public static <T> void unbind(@NonNull Class<T> serviceClass) {
-        if(serviceLruCache != null)
+        if (serviceLruCache != null)
             serviceLruCache.remove(serviceClass);
     }
 }
