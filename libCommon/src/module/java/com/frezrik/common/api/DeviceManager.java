@@ -1,5 +1,6 @@
 package com.frezrik.common.api;
 
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import com.frezrik.common.aidl.IDeviceManager;
@@ -72,5 +73,13 @@ public class DeviceManager {
             e.printStackTrace();
             throw DeviceException.getDeviceException(e.getMessage());
         }
+    }
+
+    public static void addService(String name, IBinder service) {
+        ServiceManager.addService(name, service);
+    }
+
+    public static IBinder checkService(String name) {
+        return ServiceManager.checkService(name);
     }
 }

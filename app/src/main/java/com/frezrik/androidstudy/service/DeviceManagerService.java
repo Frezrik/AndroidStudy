@@ -12,7 +12,7 @@ import com.frezrik.router.annotation.BindApi;
 public class DeviceManagerService extends IDeviceManager.Stub {
 
     @BindApi
-    private ConvertUtil convertUtil;
+    ConvertUtil convertUtil;
 
     public DeviceManagerService(Context mContext) {
         Router.bind(this);

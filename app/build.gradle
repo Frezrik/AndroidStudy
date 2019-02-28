@@ -79,8 +79,12 @@ dependencies {
         implementation project(':libCommon')
     }
 
-    api project(':core')
+    implementation project(':core')
 
     annotationProcessor project(':libRouterCompiler')
     kapt project(':libRouterCompiler')
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 }

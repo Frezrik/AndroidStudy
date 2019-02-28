@@ -1,6 +1,8 @@
 package com.frezrik.router.compiler;
 
 import javax.annotation.processing.Messager;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
 /**
@@ -23,6 +25,16 @@ public class Log {
     public void e(CharSequence error) {
         if (isNotEmpty(error)) {
             msg.printMessage(Diagnostic.Kind.ERROR, PREFIX_OF_LOG + "An exception is encountered, [" + error + "]");
+        }
+    }
+
+    public void e(Element element, String message, Object... args) {
+        if (isNotEmpty(message) && element != null) {
+            if (args.length > 0) {
+                message = String.format(message, args);
+            }
+
+            msg.printMessage(Diagnostic.Kind.ERROR, PREFIX_OF_LOG + message, element);
         }
     }
 

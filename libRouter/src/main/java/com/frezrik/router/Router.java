@@ -11,7 +11,7 @@ import java.util.Map;
 public class Router {
 
     private static final String TAG = "Router";
-    private static boolean debug = false;
+    private static boolean debug = true;
     static final Map<Class<?>, Constructor> BINDINGS = new LinkedHashMap<>();
     static final LruCache serviceLruCache = new LruCache(50);
 
@@ -21,11 +21,13 @@ public class Router {
 
     public static void bind(@NonNull Object obj) {
         String classFullName = obj.getClass().getName() + "$$BindApi";
+        if (debug) Log.d(TAG, "classFullName: " + classFullName);
         try {
             Constructor constructor = findBindingConstructorForClass(classFullName.getClass());
-            constructor.newInstance(obj);
+            constructor.newInstance(new Object[]{obj});
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
