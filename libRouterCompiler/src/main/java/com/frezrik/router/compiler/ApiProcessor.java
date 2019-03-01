@@ -30,7 +30,6 @@ public class ApiProcessor extends AbstractProcessor {
     private Elements elementUtils;
     private Map<ClassName, ClassName> tempTables;
 
-    private static final ClassName UNBINDER = ClassName.get("com.frezrik.router", "Unbinder");
     private static final String API_PATH = "api_tables";
 
     @Override
@@ -125,7 +124,7 @@ public class ApiProcessor extends AbstractProcessor {
     }
 
     private void writeToFile(Map<ClassName,Set<BindingSet>> bindTables) {
-        ClassName router = ClassName.get("com.frezrik.router", "Router");
+        ClassName am = ClassName.get("com.frezrik.router.internal", "ApiManager");
         for(Map.Entry<ClassName, Set<BindingSet>> entry : bindTables.entrySet()) {
             ClassName targetName = entry.getKey();
             String bindName = targetName.simpleName() + "$$BindApi";
@@ -135,19 +134,13 @@ public class ApiProcessor extends AbstractProcessor {
 
             Set<BindingSet> bss = entry.getValue();
             for(BindingSet bs : bss) {
-                cons.addStatement("$T.registerService($T.class, new $T())", router, bs.fieldType, bs.fieldTypeImpl);
-                cons.addStatement("target.$L = $T.service($T.class)", bs.field, router, bs.fieldType);
+                cons.addStatement("$T.getInstance().registerService($T.class, new $T())", am, bs.fieldType, bs.fieldTypeImpl);
+                cons.addStatement("target.$L = ($T) $T.getInstance().service($T.class)", bs.field, bs.fieldType, am, bs.fieldType);
             }
-
-            MethodSpec.Builder unbind = MethodSpec.methodBuilder("unbind")
-                    .addAnnotation(Override.class)
-                    .addModifiers(PUBLIC);
 
             TypeSpec bindNameType = TypeSpec.classBuilder(bindName)
                     .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                    .addSuperinterface(UNBINDER)
                     .addMethod(cons.build())
-                    .addMethod(unbind.build())
                     .build();
 
             JavaFile javaFile = JavaFile.builder(targetName.packageName(), bindNameType)
