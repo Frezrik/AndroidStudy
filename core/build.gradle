@@ -45,4 +45,7 @@ dependencies {
     debugApi deps.leakcanary.leakcanary_debug
     releaseApi deps.leakcanary.leakcanary_release
     debugApi deps.leakcanary.leakcanary_fragment
+
+    //ARouter
+    api 'com.alibaba:arouter-api:1.4.1'
 }

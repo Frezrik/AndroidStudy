@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.frezrik.androidstudy.R;
 import com.frezrik.androidstudy.ui.view.custom.CombineView;
 
@@ -81,6 +82,9 @@ public class MainActivity
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
+                break;
+            case R.id.nav_cryptography:
+                ARouter.getInstance().build("/wheel/cryptography").navigation();
                 break;
             case R.id.nav_ndk:
                 intent = new Intent(this, NDKActivity.class);

@@ -35,9 +35,8 @@
         <activity android:name=".ui.activity.CustomActivity"/>
         <activity android:name=".ui.activity.ParserActivity"/>
         <activity android:name=".ui.activity.ComponentActivity"/>
-        <activity android:name=".ui.activity.ImRecActivity">
-        </activity>
-
+        <activity android:name=".ui.activity.ImRecActivity"/>
+        <activity android:name="com.frezrk.cryptography.CryptographyActivity"/>
         <!-- ################ activity ################ -->
 
 

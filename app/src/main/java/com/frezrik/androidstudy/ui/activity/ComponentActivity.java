@@ -3,29 +3,17 @@ package com.frezrik.androidstudy.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
-import android.widget.Button;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.frezrik.androidstudy.R;
 
 public class ComponentActivity
         extends BaseActivity {
-
-    @BindView(R.id.btn_sv)
-    public Button sv;
-
-    @BindView(R.id.btn_exsv)
-    public Button exsv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_component);
 
-        ButterKnife.bind(this);
     }
 
     public void click(View view) {
