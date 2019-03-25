@@ -7,7 +7,6 @@
 
 
     <string name="rpc">RPC</string>
-    <string name="aidl">AIDL</string>
 
     <string name="wm">WindowManager</string>
     <string name="sample">SampleWindow</string>

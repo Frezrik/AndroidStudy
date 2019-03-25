@@ -98,7 +98,7 @@ public class MainActivity
     public void click(View v) {
         String title = "AndroidStudy";
         switch (v.getId()) {
-            case R.id.btn_aidl:
+            case R.id.btn_rpc:
                 title = "RPC";
                 break;
             case R.id.btn_sample:

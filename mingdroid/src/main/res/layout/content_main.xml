@@ -24,13 +24,13 @@
                       android:text="@string/rpc"/>
 
             <Button
-                    android:id="@+id/btn_aidl"
+                    android:id="@+id/btn_rpc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
 
                     android:onClick="click"
-                    android:text="@string/aidl"/>
+                    android:text="@string/rpc"/>
 
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
