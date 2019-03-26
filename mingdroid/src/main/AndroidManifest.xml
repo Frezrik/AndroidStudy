@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ming.androidstudy"
+          package="com.ming.framework"
           android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme">
         <!-- ################ activity ################ -->
         <activity
-                android:name=".ui.activity.MainActivity"
+                android:name="com.ming.androidstudy.ui.activity.MainActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,14 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.FrameworkActivity"
+        <activity android:name="com.ming.androidstudy.ui.activity.FrameworkActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".ui.activity.NDKActivity"/>
+        <activity android:name="com.ming.androidstudy.ui.activity.NDKActivity"/>
         <!-- ################ activity ################ -->
 
         <!-- ################ service ################ -->
         <service
-                android:name=".service.StudyService"
+                android:name="com.ming.androidstudy.service.StudyService"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>
@@ -43,7 +43,7 @@
 
         <!-- ################ receiver ################ -->
         <receiver
-                android:name=".receiver.StudyReceiver"
+                android:name="com.ming.androidstudy.receiver.StudyReceiver"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>

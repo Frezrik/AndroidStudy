@@ -3,23 +3,26 @@ package com.ming.androidstudy.ui.fragment.rpc;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.SystemClock;
-import android.util.Log;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
-import com.ming.androidstudy.R;
 import com.ming.androidstudy.ui.fragment.BaseFragment;
 import com.ming.api.fingerprint.FingerprintException;
 import com.ming.api.fingerprint.FingerprintListener;
 import com.ming.api.fingerprint.FingerprintManager;
 import com.ming.api.fingerprint.FingerprintResult;
+import com.ming.framework.R;
 
-public class RpcFragment extends BaseFragment {
+public class IPCFragment extends BaseFragment {
 
-    private static final String TAG = RpcFragment.class.getSimpleName();
+    private static final String TAG = IPCFragment.class.getSimpleName();
+    private Handler handler;
 
     @Override
     public int initView() {
-        return R.layout.fragment_rpc;
+        return R.layout.fragment_ipc;
     }
 
     @Override
@@ -33,6 +36,12 @@ public class RpcFragment extends BaseFragment {
                 break;
             case R.id.btn_bc:
                 start_broadcast();
+                break;
+            case R.id.btn_handler:
+                start_handlerthread();
+                break;
+            case R.id.btn_send:
+                send_msg();
                 break;
             case R.id.btn_aidl:
                 startAidl();
@@ -79,7 +88,7 @@ public class RpcFragment extends BaseFragment {
             manager.fingerStart(new FingerprintListener() {
                 @Override
                 public void onSuccess(FingerprintResult result) {
-                    Log.d(TAG, result.toString());
+                    log(result.toString());
                 }
 
                 @Override
@@ -92,8 +101,53 @@ public class RpcFragment extends BaseFragment {
 
             manager.fingerClose();
         } catch (FingerprintException e) {
-            Log.e(TAG, e.toString());
+            log(e.toString());
         }
 
+    }
+
+    //在非主线程使用Handler如下，此时用HandlerThread更方便
+    class LooperThread extends Thread {
+        public Handler mHandler;
+
+        public void run() {
+            Looper.prepare();
+
+            mHandler = new Handler() {
+                public void handleMessage(Message msg) {
+
+                }
+            };
+
+            Looper.loop();
+        }
+    }
+
+    private void start_handlerthread() {
+        HandlerThread ht = new HandlerThread("HandlerThreadDemo");
+        ht.start();
+        handler = new Handler(ht.getLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 0:
+                        log("rec:" + msg.obj);
+                        break;
+                }
+            }
+        };
+    }
+
+    private void send_msg() {
+        if (handler != null) {
+            handler.sendMessage(handler.obtainMessage(0, "主线程发送了消息。。。"));
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    handler.sendMessage(handler.obtainMessage(0, "子线程发送了消息。。。"));
+                }
+            }).start();
+        }
     }
 }

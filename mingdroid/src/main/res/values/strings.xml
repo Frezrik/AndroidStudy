@@ -5,8 +5,15 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="ipc">IPC</string>
+    <string name="component">四大组件</string>
+    <string name="implicit">隐式服务</string>
+    <string name="explicit">显式服务</string>
+    <string name="broadcast">广播</string>
+    <string name="handler_thread">HandlerThread</string>
+    <string name="send_msg">Send message</string>
+    <string name="aidl">AIDL</string>
 
-    <string name="rpc">RPC</string>
 
     <string name="wm">WindowManager</string>
     <string name="sample">SampleWindow</string>

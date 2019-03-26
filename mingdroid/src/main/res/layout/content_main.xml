@@ -21,16 +21,16 @@
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:textStyle="bold"
-                      android:text="@string/rpc"/>
+                      android:text="@string/ipc"/>
 
             <Button
-                    android:id="@+id/btn_rpc"
+                    android:id="@+id/btn_ipc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
 
                     android:onClick="click"
-                    android:text="@string/rpc"/>
+                    android:text="@string/ipc"/>
 
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"

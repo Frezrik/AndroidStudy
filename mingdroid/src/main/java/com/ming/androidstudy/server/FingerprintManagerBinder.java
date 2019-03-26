@@ -5,8 +5,6 @@ import android.os.RemoteException;
 import com.ming.aidl.IFingerprintResult;
 import com.ming.aidl.IFingerService;
 import com.ming.aidl.IFingerprintListener;
-import com.ming.api.BaseException;
-import com.ming.api.fingerprint.FingerprintException;
 
 public class FingerprintManagerBinder extends IFingerService.Stub {
     private static FingerprintManagerBinder mFingerprintManagerBinder = null;

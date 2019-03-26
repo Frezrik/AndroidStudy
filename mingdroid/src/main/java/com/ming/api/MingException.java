@@ -8,9 +8,7 @@ public class MingException extends BaseException {
     /**
      * 使用当前堆栈跟踪和具体的详细信息构造新的异常。
      *
-     * @param exCode
-     *            异常码
-     *
+     * @param exCode 异常码
      */
     public MingException(int exCode) {
         super(searchMessage(exCode));
@@ -20,7 +18,6 @@ public class MingException extends BaseException {
      * 使用当前堆栈跟踪和具体的详细信息构造新的异常。
      *
      * @param message 异常的具体信息
-     *
      */
     public MingException(String message) {
         super(searchMessage(message));
@@ -34,16 +31,13 @@ public class MingException extends BaseException {
      */
     private static String searchMessage(int exCode) {
         String msg = searchBaseMessage(exCode);
-        try {
-            Integer.parseInt(msg);
+        if (isNumeric(msg)) {
             switch (exCode) {
                 default:
                     exCode = UNKNOWN_ERROR;
                     msg = "Unknown error";
                     break;
             }
-        } catch (NumberFormatException e) {
-
         }
         exceptionCode = exCode;
         return msg;
@@ -59,7 +53,9 @@ public class MingException extends BaseException {
         try {
             return searchMessage(Integer.parseInt(message));
         } catch (NumberFormatException e) {
-            Log.e(TAG, Thread.currentThread().getStackTrace()[4].getMethodName() + "=>" + message);
+            StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
+            Log.e(TAG, message);
+            Log.e(TAG, String.format("at %s.%s(%s:%d)", ste.getClassName(), ste.getMethodName(), ste.getFileName(), ste.getLineNumber()));
             return searchMessage(UNKNOWN_ERROR);
         }
     }

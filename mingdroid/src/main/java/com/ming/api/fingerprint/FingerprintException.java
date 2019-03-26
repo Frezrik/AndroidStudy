@@ -61,8 +61,7 @@ public class FingerprintException extends BaseException {
 	
 	private static String searchMessage(int exCode) {
 		String msg = searchBaseMessage(exCode);
-		try {
-			Integer.parseInt(msg);
+		if (isNumeric(msg)) {
 			switch (exCode) {
 				case FINGER_RETVAL_NOT_POWER_ON:
 					msg = "The fingerprint module does not power on";
@@ -87,8 +86,6 @@ public class FingerprintException extends BaseException {
 					msg = "Unknown error";
 					break;
 			}
-		} catch (NumberFormatException e) {
-
 		}
 		exceptionCode = exCode;
 		return msg;
@@ -104,7 +101,9 @@ public class FingerprintException extends BaseException {
 		try {
 			return searchMessage(Integer.parseInt(message));
 		} catch (NumberFormatException e) {
-			Log.e(TAG, Thread.currentThread().getStackTrace()[4].getMethodName() + "=>" + message);
+			StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
+			Log.e(TAG, message);
+			Log.e(TAG, String.format("at %s.%s(%s:%d)", ste.getClassName(), ste.getMethodName(), ste.getFileName(), ste.getLineNumber()));
 			return searchMessage(UNKNOWN_ERROR);
 		}
 	}

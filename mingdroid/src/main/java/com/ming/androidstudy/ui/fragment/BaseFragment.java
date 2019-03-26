@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.ming.androidstudy.ui.activity.FrameworkActivity;
 
 import java.util.LinkedList;
 
@@ -45,4 +46,9 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     }
 
     protected abstract void click(View view);
+
+    public void log(String msg) {
+        ((FrameworkActivity) getActivity()).log(msg);
+    }
+
 }

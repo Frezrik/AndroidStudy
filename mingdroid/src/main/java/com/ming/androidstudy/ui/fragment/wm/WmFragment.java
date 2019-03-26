@@ -3,9 +3,9 @@ package com.ming.androidstudy.ui.fragment.wm;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import com.ming.androidstudy.R;
 import com.ming.androidstudy.ui.fragment.BaseFragment;
 import com.ming.androidstudy.framework.wm.SampleWindow;
+import com.ming.framework.R;
 
 public class WmFragment extends BaseFragment {
 

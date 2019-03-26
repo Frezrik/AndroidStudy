@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.ming.androidstudy.R;
+import com.ming.framework.R;
 
 public class MainActivity
         extends BaseActivity
@@ -98,8 +98,8 @@ public class MainActivity
     public void click(View v) {
         String title = "AndroidStudy";
         switch (v.getId()) {
-            case R.id.btn_rpc:
-                title = "RPC";
+            case R.id.btn_ipc:
+                title = "IPC";
                 break;
             case R.id.btn_sample:
                 title = "WindowManager";

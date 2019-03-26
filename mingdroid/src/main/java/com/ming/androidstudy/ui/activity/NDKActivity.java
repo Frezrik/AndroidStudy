@@ -8,7 +8,7 @@ import com.frezrik.jniapi.JMethod;
 import com.frezrik.jniapi.JNIStudy;
 import com.frezrik.jniapi.JPersistent;
 import com.frezrik.jniapi.NativeLib;
-import com.ming.androidstudy.R;
+import com.ming.framework.R;
 
 public class NDKActivity
         extends BaseActivity

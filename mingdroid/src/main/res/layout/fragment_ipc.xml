@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:fillViewport="true"
+        tools:context=".ui.fragment.rpc.IPCFragment">
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/tv_component"
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:layout_margin="8dp"
+                  android:text="@string/component"/>
+
+        <Button
+                app:layout_constraintTop_toBottomOf="@id/tv_component"
+                android:id="@+id/btn_sv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/implicit"/>
+
+        <Button
+                app:layout_constraintTop_toBottomOf="@id/btn_sv"
+                android:id="@+id/btn_exsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/explicit"/>
+
+        <Button
+                app:layout_constraintTop_toBottomOf="@id/btn_exsv"
+                android:id="@+id/btn_bc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/broadcast"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  app:layout_constraintTop_toBottomOf="@id/btn_bc"
+                  android:id="@+id/tv_ipc"
+                  android:layout_margin="8dp"
+                  android:text="@string/ipc"/>
+
+        <Button app:layout_constraintTop_toBottomOf="@id/tv_ipc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_send"
+                android:id="@+id/btn_handler"
+                android:layout_width="0dp"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/handler_thread"/>
+
+        <Button app:layout_constraintTop_toBottomOf="@id/tv_ipc"
+                app:layout_constraintStart_toEndOf="@id/btn_handler"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/btn_send"
+                android:layout_width="0dp"
+                app:layout_constraintHorizontal_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/send_msg"/>
+
+        <Button
+                app:layout_constraintTop_toBottomOf="@id/btn_handler"
+                android:id="@+id/btn_aidl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/aidl"/>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
+
