@@ -3,8 +3,14 @@ package com.ming;
 import android.app.Application;
 import android.content.Context;
 import android.os.ServiceManager;
+import android.support.annotation.Nullable;
 import android.support.multidex.MultiDex;
 import com.ming.androidstudy.server.FingerprintManagerBinder;
+import com.ming.framework.BuildConfig;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 public class FApplication extends Application {
     private Context mContext;
@@ -24,8 +30,21 @@ public class FApplication extends Application {
         // 在Appliction里面设置我们的异常处理器为UncaughtExceptionHandler处理器
         CrashHandler.getInstance().init();
 
-        startFingerprintService();
+        // logger init
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
+                .methodCount(3)         // (Optional) How many method line to show. Default 2
+                .methodOffset(4)        // (Optional) Hides internal method calls up to offset. Default 5
+                .tag("zmzm")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+            @Override
+            public boolean isLoggable(int priority, @Nullable String tag) {
+                return BuildConfig.DEBUG;
+            }
+        });
 
+        startFingerprintService();
     }
 
     private void startFingerprintService() {

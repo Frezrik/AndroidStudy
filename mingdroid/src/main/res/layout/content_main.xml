@@ -9,7 +9,7 @@
     android:overScrollMode="never"
     android:scrollbars="none"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.activity.MainActivity"
+    tools:context="com.ming.androidstudy.ui.activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
         <LinearLayout
@@ -28,7 +28,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-
                     android:onClick="click"
                     android:text="@string/ipc"/>
 
@@ -44,6 +43,21 @@
                     android:onClick="click"
                     android:text="@string/sample"/>
 
+            <Button
+                    android:id="@+id/btn_opengl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:onClick="click"
+                    android:text="@string/opengl"/>
+
+            <Button
+                    android:id="@+id/btn_egl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:onClick="click"
+                    android:text="@string/egl"/>
         </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

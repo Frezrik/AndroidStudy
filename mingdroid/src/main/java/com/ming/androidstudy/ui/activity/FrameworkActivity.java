@@ -8,6 +8,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.widget.TextView;
 import com.ming.androidstudy.ui.fragment.rpc.IPCFragment;
+import com.ming.androidstudy.ui.fragment.wm.EGLFragment;
+import com.ming.androidstudy.ui.fragment.wm.GLFragment;
 import com.ming.androidstudy.ui.fragment.wm.WmFragment;
 import com.ming.framework.R;
 
@@ -39,6 +41,12 @@ public class FrameworkActivity extends BaseActivity {
             case "SampleWindow":
                 ft = ft.replace(R.id.container, new WmFragment());
                 break;
+            case "OpenGL":
+                ft = ft.replace(R.id.container, new GLFragment());
+                break;
+            case "EGL":
+                ft = ft.replace(R.id.container, new EGLFragment());
+                break;
         }
         ft.commit();
     }
@@ -52,14 +60,14 @@ public class FrameworkActivity extends BaseActivity {
 
                     break;
             }
-            
+
         }
     };
 
     public void log(String msg) {
         mHandler.sendMessage(mHandler.obtainMessage(SHOW_TEXT, msg));
     }
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

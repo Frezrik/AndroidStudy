@@ -1,6 +1,7 @@
 package com.ming.androidstudy.ui.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -13,9 +14,19 @@ import com.ming.androidstudy.ui.activity.FrameworkActivity;
 import java.util.LinkedList;
 
 public abstract class BaseFragment extends Fragment implements View.OnClickListener {
+    protected Context mContext;
+    protected View mLayout;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(initView(), container, false);
+        mLayout = view;
         setClick((ViewGroup) view);
         return view;
     }

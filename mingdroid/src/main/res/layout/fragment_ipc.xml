@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:fillViewport="true"
-        tools:context=".ui.fragment.rpc.IPCFragment">
+        tools:context="com.ming.androidstudy.ui.fragment.rpc.IPCFragment">
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -48,6 +48,7 @@
                 app:layout_constraintEnd_toStartOf="@id/btn_send"
                 android:id="@+id/btn_handler"
                 android:layout_width="0dp"
+                android:textAllCaps="false"
                 app:layout_constraintHorizontal_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/handler_thread"/>
@@ -57,6 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/btn_send"
                 android:layout_width="0dp"
+                android:textAllCaps="false"
                 app:layout_constraintHorizontal_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/send_msg"/>
@@ -67,6 +69,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/aidl"/>
+
+        <Button
+                app:layout_constraintTop_toBottomOf="@id/btn_aidl"
+                android:id="@+id/btn_messenger"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/messenger"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
 

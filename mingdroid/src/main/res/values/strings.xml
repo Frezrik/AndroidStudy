@@ -13,10 +13,13 @@
     <string name="handler_thread">HandlerThread</string>
     <string name="send_msg">Send message</string>
     <string name="aidl">AIDL</string>
+    <string name="messenger">Messenger</string>
 
 
     <string name="wm">WindowManager</string>
     <string name="sample">SampleWindow</string>
+    <string name="opengl">OpenGL</string>
+    <string name="egl">EGL</string>
 
 
     <string name="ndk">NDK</string>

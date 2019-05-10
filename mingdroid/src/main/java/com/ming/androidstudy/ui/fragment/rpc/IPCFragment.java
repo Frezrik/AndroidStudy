@@ -1,12 +1,12 @@
 package com.ming.androidstudy.ui.fragment.rpc;
 
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
+import android.os.*;
 import android.view.View;
 import com.ming.androidstudy.ui.fragment.BaseFragment;
 import com.ming.api.fingerprint.FingerprintException;
@@ -14,6 +14,7 @@ import com.ming.api.fingerprint.FingerprintListener;
 import com.ming.api.fingerprint.FingerprintManager;
 import com.ming.api.fingerprint.FingerprintResult;
 import com.ming.framework.R;
+import com.orhanobut.logger.Logger;
 
 public class IPCFragment extends BaseFragment {
 
@@ -45,6 +46,9 @@ public class IPCFragment extends BaseFragment {
                 break;
             case R.id.btn_aidl:
                 startAidl();
+                break;
+            case R.id.btn_messenger:
+                startMessenger();
                 break;
         }
     }
@@ -82,8 +86,9 @@ public class IPCFragment extends BaseFragment {
     }
 
     private void startAidl() {
+        FingerprintManager manager = null;
         try {
-            final FingerprintManager manager = FingerprintManager.getInstance();
+            manager = FingerprintManager.getInstance();
             manager.fingerOpen();
             manager.fingerStart(new FingerprintListener() {
                 @Override
@@ -102,9 +107,62 @@ public class IPCFragment extends BaseFragment {
             manager.fingerClose();
         } catch (FingerprintException e) {
             log(e.toString());
+            if (manager != null) {
+                try {
+                    manager.fingerClose();
+                } catch (FingerprintException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
 
     }
+
+    private void startMessenger() {
+        // 1.bind
+        Intent intent = new Intent();
+        intent.setAction("com.ming.messengerService");
+        intent.setPackage(getActivity().getPackageName());
+        mContext.bindService(intent, mConn, Context.BIND_AUTO_CREATE);
+
+    }
+    private ServiceConnection mConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            //客户端的Messenger
+            HandlerThread ht = new HandlerThread("MessengerClient");
+            ht.start();
+            Messenger clientMessenger = new Messenger(new Handler(ht.getLooper()) {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    // 3. rec
+                    Logger.d("客户端接收[%d]:%s", msg.what, msg.obj);
+                    log("客户端接收:" + msg.obj);
+                }
+            });
+
+            // 2.send
+            //服务端的Messenger
+            Messenger serverMessenger = new Messenger(iBinder);
+            Message message = Message.obtain();
+            message.what = 0x01;
+            message.obj = "Hello messenger!";
+            message.replyTo = clientMessenger;//注意指定回信人
+            try {
+                serverMessenger.send(message);
+                Logger.d("客户端发送[%d]:%s", message.what, message.obj);
+                log("客户端发送:" + message.obj);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    };
 
     //在非主线程使用Handler如下，此时用HandlerThread更方便
     class LooperThread extends Thread {
@@ -149,5 +207,12 @@ public class IPCFragment extends BaseFragment {
                 }
             }).start();
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // unbind
+        mContext.unbindService(mConn);
     }
 }

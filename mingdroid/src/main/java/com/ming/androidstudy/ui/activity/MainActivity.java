@@ -99,10 +99,16 @@ public class MainActivity
         String title = "AndroidStudy";
         switch (v.getId()) {
             case R.id.btn_ipc:
-                title = "IPC";
+                title = getString(R.string.ipc);
                 break;
             case R.id.btn_sample:
-                title = "WindowManager";
+                title = getString(R.string.sample);
+                break;
+            case R.id.btn_opengl:
+                title = getString(R.string.opengl);
+                break;
+            case R.id.btn_egl:
+                title = getString(R.string.egl);
                 break;
         }
         startActivity((Button) v, title);

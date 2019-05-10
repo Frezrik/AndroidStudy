@@ -3,6 +3,8 @@ package com.ming.androidstudy.utils;
 import android.content.Context;
 import android.util.Log;
 
+import java.nio.*;
+
 public class Convert{
     private static final String TAG = Convert.class.getSimpleName();
     private static Convert instance;
