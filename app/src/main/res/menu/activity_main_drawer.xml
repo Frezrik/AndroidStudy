@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_menu_home"
         android:title="Android"/>
     <item
+        android:id="@+id/nav_cryptography"
+        android:icon="@drawable/ic_menu_cryptography"
+        android:title="Cryptography"/>
+    <item
         android:id="@+id/nav_ndk"
         android:icon="@drawable/ic_menu_ndk"
         android:title="NDK"/>

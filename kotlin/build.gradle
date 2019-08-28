@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 27
+    compileSdkVersion versions.compileSdk
 
 
 
@@ -27,9 +27,13 @@ android {
 }
 
 dependencies {
-    implementation (project(':commonlib')) {
-        exclude group: 'com.frezrik.support'
-    }
+    /*if (isModule.toBoolean()) {
+        implementation project(':commonlib') {
+            exclude group:'com.frezrik.support'
+        }
+    }*/
+
+    implementation project(':core')
 
     // Room components
     implementation "android.arch.persistence.room:runtime:1.1.1"
