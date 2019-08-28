@@ -23,10 +23,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
+        // ARouter need
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
+        }
+        ndk {
+            ldLibs 'log'
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
@@ -49,9 +54,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.app
         }
+        /*platform {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.platform
+            buildConfigField "boolean", "platform", "true"
+        }*/
     }
     sourceSets {
         main {
+            jni.srcDirs = ['jni']
             jniLibs.srcDirs = ['libs']
             aidl.srcDirs = ['src/main/aidl']
             java.srcDirs = ['src/main/java', 'src/main/aidl']
@@ -60,6 +72,19 @@ android {
     externalNativeBuild {
         ndkBuild {
             path 'jni/Android.mk'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.getProcessManifestProvider().get().doLast {
+
+                if (variant.buildType.name == 'platform') {
+                    def manifestFile = file("$manifestOutputDirectory/AndroidManifest.xml")
+                    def updatedContent = manifestFile.getText('UTF-8').replace("frezrik.uid.androidstudy", "android.uid.system")
+                    manifestFile.write(updatedContent, 'UTF-8')
+                }
+
+            }
         }
     }
 
@@ -75,8 +100,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-    resourcePrefix "app_"
-
 }
 
 dependencies {
@@ -89,9 +112,34 @@ dependencies {
 
     implementation project(':core')
 
+    //leakcanary
+    debugApi deps.leakcanary.leakcanary_debug
+    releaseApi deps.leakcanary.leakcanary_release
+    debugApi deps.leakcanary.leakcanary_fragment
+
     annotationProcessor project(':libRouterCompiler')
     kapt project(':libRouterCompiler')
 
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     kapt 'com.alibaba:arouter-compiler:1.2.2'
+
+
 }
+
+/*preBuild {
+    doLast {
+        def imlFile = file( project.name + ".iml")
+        println '=>Change ' + project.name + '.iml'
+        try {
+            def parsedXml = new XmlParser().parse(imlFile)
+            if(libNode != null) {
+                parsedXml.component[1].remove(libNode)
+                contentNode.plus{new Node( parsedXml.component[1], 'orderEntry', ['type': 'library', 'name': libPath, 'level': 'project']) }
+            }
+
+            groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
+        } catch (FileNotFoundException e) {
+            println "no iml found"
+        }
+    }
+}*/

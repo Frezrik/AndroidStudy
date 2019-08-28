@@ -1,6 +1,11 @@
 package com.frezrik.common.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.Security;
+import java.security.cert.X509Certificate;
 
 import android.content.Context;
 import android.content.Intent;

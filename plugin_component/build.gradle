@@ -1,7 +1,7 @@
 apply plugin: 'groovy'
 
 dependencies {
-    implementation 'com.android.tools.build:gradle:3.2.1'
+    implementation 'com.android.tools.build:gradle:3.3.2'
     implementation 'org.javassist:javassist:3.24.1-GA'
     //gradle sdk
     implementation gradleApi()
@@ -10,4 +10,4 @@ dependencies {
 
 }
 
-apply from: 'https://raw.github.com/Frezrik/Repository/master/gradle-build.gradle'
+//apply from: 'https://raw.github.com/Frezrik/Repository/master/gradle-build.gradle'

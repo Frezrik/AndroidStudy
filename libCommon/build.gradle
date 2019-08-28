@@ -13,7 +13,7 @@ android {
             multiDexEnabled true
         }
         minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdkVersion
+        targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -104,6 +104,8 @@ dependencies {
         transitive = true
     }
 
+    implementation 'com.madgag.spongycastle:core:1.58.0.0'
+
     //system api
     compileOnly files('libs/layoutlib.jar')
 
@@ -119,9 +121,9 @@ preBuild {
 
             def libsubPath
             if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-                libsubPath = '\\commonlib\\libs\\layoutlib.jar:unspecified@jar'
+                libsubPath = '\\libCommon\\libs\\layoutlib.jar:unspecified@jar'
             } else {
-                libsubPath = '/commonlib/libs/layoutlib.jar:unspecified@jar'
+                libsubPath = '/libCommon/libs/layoutlib.jar:unspecified@jar'
             }
             def libPath = 'Gradle: __local_aars__:' + project.rootDir.getAbsolutePath().replace(':', '.') + libsubPath
             def libNode = parsedXml.component[1].orderEntry.find { it.@name == libPath }
